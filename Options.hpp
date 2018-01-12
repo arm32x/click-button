@@ -15,4 +15,10 @@ namespace Options {
 
     const Color BackgroundColor = Color(0x21, 0x21, 0x2B);
 
+    const        Color StandardButtonColor       = Color(0xCC, 0xCC, 0xCC);
+    const        Color StandardButtonShadowColor = Color(0xAA, 0xAA, 0xAA);
+    const        Color StandardButtonTextColor   = Color(0x21, 0x21, 0x21);
+    const unsigned int StandardButtonTextSize    = 16;
+    const     Vector2f StandardButtonSize        = Vector2f(180.0f, 41.0f);
+
 };
