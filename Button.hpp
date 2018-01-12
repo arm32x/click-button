@@ -37,14 +37,14 @@ public:
 protected:
     virtual void draw(RenderTarget& window, RenderStates states) const;
 
-private:
     RectangleShape shape;
     RectangleShape shadowShape;
     Text label;
 
-    bool pressed;
-
     static Font labelFont;
     static Font initLabelFont();
+
+private:
+    bool pressed = false;
 
 };
