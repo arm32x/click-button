@@ -2,6 +2,7 @@
 using namespace sf;
 
 #include "Button.hpp"
+#include "Collision.hpp"
 #include "Options.hpp"
 #include "Random.hpp"
 
@@ -19,6 +20,14 @@ int main() {
                 switch (e.type) {
                     case Event::Closed:
                         window.close();
+                        break;
+                    case Event::MouseButtonPressed:
+                        if (e.mouseButton.button == Mouse::Left && Collision::pointToRect(window.mapPixelToCoords(Mouse::getPosition(window)), testButton.getGlobalBounds())) {
+                            testButton.press();
+                        }
+                        break;
+                    case Event::MouseButtonReleased:
+                        testButton.release();
                         break;
                     default:
                         break;

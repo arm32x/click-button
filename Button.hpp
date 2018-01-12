@@ -32,6 +32,8 @@ public:
     void release();
     void toggle();
 
+    FloatRect getGlobalBounds();
+
 protected:
     virtual void draw(RenderTarget& window, RenderStates states) const;
 

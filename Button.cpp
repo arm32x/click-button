@@ -43,6 +43,11 @@ void Button::release() { setPressed(false); }
 void Button::toggle() { setPressed(!isPressed()); }
 
 
+FloatRect Button::getGlobalBounds() {
+    return FloatRect(shape.getPosition().x, shape.getPosition().y, shape.getSize().x, shape.getSize().y + 5.0f);
+}
+
+
 void Button::draw(RenderTarget& window, RenderStates states) const {
     if (isPressed()) {
         window.draw(shadowShape);
