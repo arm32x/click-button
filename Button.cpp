@@ -65,9 +65,10 @@ void Button::draw(RenderTarget& window, RenderStates states) const {
 
 void Button::rewrapLabelText() {
     FloatRect labelBounds = label.getLocalBounds();
-    label.setOrigin(labelBounds.left + labelBounds.width  / 2.0f,
-                    labelBounds.top  + labelBounds.height / 2.0f);
-    label.setPosition(shape.getPosition() + shape.getSize() / 2.0f);
+    label.setOrigin(std::round(labelBounds.left + labelBounds.width  / 2.0f),
+                    std::round(labelBounds.top  + labelBounds.height / 2.0f));
+    label.setPosition(Vector2f(std::round(shape.getPosition().x + shape.getSize().x / 2.0f),
+                               std::round(shape.getPosition().y + shape.getSize().y / 2.0f)));
 }
 
 
