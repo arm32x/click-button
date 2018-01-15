@@ -17,14 +17,14 @@ using namespace sf;
 class Button : public Drawable {
 
 public:
-    Button(Vector2f position, Vector2f size, Color color, Color shadowColor, Color textColor, std::string labelText);
-    Button(Vector2f position, Vector2f size, Color color, Color shadowColor);
-    Button(Vector2f position, Vector2f size, std::string labelText);
-    Button(Vector2f position, Vector2f size);
-    Button(Vector2f position, Color color, Color shadowColor, Color textColor, std::string labelText);
-    Button(Vector2f position, Color color, Color shadowColor);
-    Button(Vector2f position, std::string labelText);
-    Button(Vector2f position);
+    Button(const Vector2f position, const Vector2f size, const Color color, const Color shadowColor, const Color textColor, const std::string labelText);
+    Button(const Vector2f position, const Vector2f size, const Color color, const Color shadowColor);
+    Button(const Vector2f position, const Vector2f size, const std::string labelText);
+    Button(const Vector2f position, const Vector2f size);
+    Button(const Vector2f position, const Color color, const Color shadowColor, const Color textColor, const std::string labelText);
+    Button(const Vector2f position, const Color color, const Color shadowColor);
+    Button(const Vector2f position, const std::string labelText);
+    Button(const Vector2f position);
 
     bool isPressed() const;
     void setPressed(bool value);

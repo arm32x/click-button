@@ -1,7 +1,6 @@
 #include "Button.hpp"
 
-Button::Button(Vector2f position, Vector2f size, Color color, Color shadowColor, Color textColor, std::string labelText) {
-
+Button::Button(const Vector2f position, const Vector2f size, const Color color, const Color shadowColor, const Color textColor, const std::string labelText) {
     shape.setPosition(position);
     shape.setSize(size + Vector2f(0.0f, -5.0f));
     shape.setFillColor(color);
@@ -20,19 +19,19 @@ Button::Button(Vector2f position, Vector2f size, Color color, Color shadowColor,
     label.setPosition(shape.getPosition() + shape.getSize() / 2.0f);
 }
 
-Button::Button(Vector2f position, Vector2f size, Color color, Color shadowColor)
+Button::Button(const Vector2f position, const Vector2f size, const Color color, const Color shadowColor)
     : Button(position, size, color, shadowColor, Options::StandardButtonTextColor, "") { }
-Button::Button(Vector2f position, Vector2f size, std::string labelText)
+Button::Button(const Vector2f position, const Vector2f size, const std::string labelText)
     : Button(position, size, Options::StandardButtonColor, Options::StandardButtonShadowColor, Options::StandardButtonTextColor, labelText) { }
-Button::Button(Vector2f position, Vector2f size)
+Button::Button(const Vector2f position, const Vector2f size)
     : Button(position, size, Options::StandardButtonColor, Options::StandardButtonShadowColor, Options::StandardButtonTextColor, "") { }
-Button::Button(Vector2f position, Color color, Color shadowColor, Color textColor, std::string labelText)
+Button::Button(const Vector2f position, const Color color, const Color shadowColor, const Color textColor, const std::string labelText)
     : Button(position, Options::StandardButtonSize, color, shadowColor, textColor, labelText) { }
-Button::Button(Vector2f position, Color color, Color shadowColor)
+Button::Button(const Vector2f position, const Color color, const Color shadowColor)
     : Button(position, Options::StandardButtonSize, color, shadowColor, Options::StandardButtonTextColor, "") { }
-Button::Button(Vector2f position, std::string labelText)
+Button::Button(const Vector2f position, const std::string labelText)
     : Button(position, Options::StandardButtonSize, Options::StandardButtonColor, Options::StandardButtonShadowColor, Options::StandardButtonTextColor, labelText) { }
-Button::Button(Vector2f position)
+Button::Button(const Vector2f position)
     : Button(position, Options::StandardButtonSize, Options::StandardButtonColor, Options::StandardButtonShadowColor, Options::StandardButtonTextColor, "") { }
 
 
