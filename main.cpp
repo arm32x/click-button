@@ -3,6 +3,7 @@ using namespace sf;
 
 #include "Button.hpp"
 #include "Collision.hpp"
+#include "MainButton.hpp"
 #include "Options.hpp"
 #include "Random.hpp"
 
@@ -11,7 +12,7 @@ int main() {
     int splashTextIndex = Random::getIntFromRange(0, Options::SplashTexts.size());
     RenderWindow window(Options::ScreenSize, "Click button. " + Options::SplashTexts[splashTextIndex], Style::Titlebar | Style::Close);
 
-    Button testButton(Vector2f(5.0f, 5.0f), "This is a test.");
+    MainButton testButton(Vector2f(50.0f, 50.0f));
 
     while (window.isOpen()) {
         {// Event handling
