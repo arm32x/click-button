@@ -15,7 +15,8 @@ namespace Options {
         "Realize this is a Cookie Clicker clone.",
         "Get bored.",
         "Batteries not included.",
-        "Buy stuff with points."
+        "Buy stuff with points.",
+        "Get wither."
     };
 
     const Color BackgroundColor = Color(0x21, 0x21, 0x2B);
