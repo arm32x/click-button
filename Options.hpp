@@ -5,8 +5,6 @@ using namespace sf;
 
 namespace Options {
 
-    const VideoMode ScreenSize = VideoMode(854, 480);
-
     const std::vector<std::string> SplashTexts = {
         "Get points.",
         "Click button more. Click button even more.",
@@ -32,5 +30,7 @@ namespace Options {
     const        Color MainButtonTextColor   = Color(0xFA, 0xFA, 0xFA);
     const unsigned int MainButtonTextSize    = 45;
     const     Vector2f MainButtonSize        = Vector2f(275.0f, 150.0f);
+
+    const Color DividerColor = Color(0xFF, 0xFF, 0xFF, 0.10 * 0xFF);
 
 };

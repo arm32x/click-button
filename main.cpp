@@ -10,10 +10,10 @@ using namespace sf;
 int main() {
 
     int splashTextIndex = Random::getIntFromRange(0, Options::SplashTexts.size());
-    RenderWindow window(Options::ScreenSize, "Click button. " + Options::SplashTexts[splashTextIndex], Style::Titlebar | Style::Close);
+    RenderWindow window(VideoMode(854, 480), "Click button. " + Options::SplashTexts[splashTextIndex], Style::Titlebar | Style::Close);
 
 
-    MainButton mainButton(Vector2f(50.0f, 150.0f));
+    MainButton mainButton(Vector2f(100.0f, 150.0f));
 
 
     Font logoFont;
@@ -25,7 +25,7 @@ int main() {
     logo.setFont(logoFont);
     logo.setFillColor(Color(0xFF, 0xFF, 0xFF));
     logo.setCharacterSize(24);
-    logo.setPosition(10.0f, 10.0f);
+    logo.setPosition(20.0f, 10.0f);
     logo.setString("Click button.");
 
 
@@ -38,8 +38,29 @@ int main() {
     splashTextLabel.setFont(splashTextFont);
     splashTextLabel.setFillColor(Color(0xFF, 0xFF, 0xFF));
     splashTextLabel.setCharacterSize(12);
-    splashTextLabel.setPosition(10.0f, 40.0f);
+    splashTextLabel.setPosition(20.0f, 40.0f);
     splashTextLabel.setString(Options::SplashTexts[splashTextIndex]);
+
+
+    RectangleShape shopDivider;
+    shopDivider.setFillColor(Options::DividerColor);
+    shopDivider.setSize(Vector2f(1.0f, 480.0f));
+    shopDivider.setPosition(Vector2f(475.0f, 0.0f));
+
+
+    Text shopHeader;
+    shopHeader.setFont(logoFont);
+    shopHeader.setFillColor(Color(0xFF, 0xFF, 0xFF));
+    shopHeader.setCharacterSize(24);
+    shopHeader.setPosition(496.0f, 10.0f);
+    shopHeader.setString("Buy things.");
+
+    Text shopSlogan;
+    shopSlogan.setFont(splashTextFont);
+    shopSlogan.setFillColor(Color(0xFF, 0xFF, 0xFF));
+    shopSlogan.setCharacterSize(12);
+    shopSlogan.setPosition(496.0f, 40.0f);
+    shopSlogan.setString("Increase your clicking power.");
 
 
     bool autoclicking = false;
@@ -94,6 +115,9 @@ int main() {
         }
 
         window.clear(Options::BackgroundColor);
+        window.draw(shopDivider);
+        window.draw(shopHeader);
+        window.draw(shopSlogan);
         window.draw(logo);
         window.draw(splashTextLabel);
         window.draw(mainButton);
