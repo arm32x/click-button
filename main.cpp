@@ -12,7 +12,7 @@ int main() {
     int splashTextIndex = Random::getIntFromRange(0, Options::SplashTexts.size());
     RenderWindow window(Options::ScreenSize, "Click button. " + Options::SplashTexts[splashTextIndex], Style::Titlebar | Style::Close);
 
-    MainButton testButton(Vector2f(50.0f, 50.0f));
+    MainButton mainButton(Vector2f(50.0f, 150.0f));
 
     while (window.isOpen()) {
         {// Event handling
@@ -23,12 +23,12 @@ int main() {
                         window.close();
                         break;
                     case Event::MouseButtonPressed:
-                        if (e.mouseButton.button == Mouse::Left && Collision::pointToRect(window.mapPixelToCoords(Mouse::getPosition(window)), testButton.getGlobalBounds())) {
-                            testButton.press();
+                        if (e.mouseButton.button == Mouse::Left && Collision::pointToRect(window.mapPixelToCoords(Mouse::getPosition(window)), mainButton.getGlobalBounds())) {
+                            mainButton.press();
                         }
                         break;
                     case Event::MouseButtonReleased:
-                        testButton.release();
+                        mainButton.release();
                         break;
                     default:
                         break;
@@ -37,7 +37,7 @@ int main() {
         }
 
         window.clear(Options::BackgroundColor);
-        window.draw(testButton);
+        window.draw(mainButton);
         window.display();
     }
 
