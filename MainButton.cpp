@@ -47,3 +47,9 @@ Font MainButton::initLabelFont() {
     }
     return labelFont;
 }
+
+void MainButton::onRelease() {
+    score++;
+    label.setString(std::to_string(score));
+    rewrapLabelText();
+}

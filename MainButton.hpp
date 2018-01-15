@@ -1,5 +1,7 @@
 #pragma once
 
+#include <string>
+
 #include <SFML/Graphics.hpp>
 using namespace sf;
 
@@ -17,10 +19,14 @@ protected:
     RectangleShape stand;
     RectangleShape standShadow;
 
+    void onRelease();
+
 private:
     using Button::Button;
 
     static Font labelFont;
     static Font initLabelFont();
+
+    long score = 0;
 
 };

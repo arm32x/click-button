@@ -41,6 +41,8 @@ protected:
     RectangleShape shadowShape;
     Text label;
 
+    virtual void onPress() { };
+    virtual void onRelease() { };
 
     void rewrapLabelText();
 
