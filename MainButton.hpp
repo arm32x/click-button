@@ -20,4 +20,7 @@ protected:
 private:
     using Button::Button;
 
+    static Font labelFont;
+    static Font initLabelFont();
+
 };

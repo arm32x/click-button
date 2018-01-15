@@ -13,10 +13,7 @@ Button::Button(const Vector2f position, const Vector2f size, const Color color, 
     label.setCharacterSize(Options::StandardButtonTextSize);
     label.setFillColor(textColor);
     label.setString(labelText);
-    FloatRect labelBounds = label.getLocalBounds();
-    label.setOrigin(labelBounds.left + labelBounds.width  / 2.0f,
-                    labelBounds.top  + labelBounds.height / 2.0f);
-    label.setPosition(shape.getPosition() + shape.getSize() / 2.0f);
+    rewrapLabelText();
 }
 
 Button::Button(const Vector2f position, const Vector2f size, const Color color, const Color shadowColor)
@@ -63,6 +60,14 @@ void Button::draw(RenderTarget& window, RenderStates states) const {
         window.draw(shape);
         window.draw(label);
     }
+}
+
+
+void Button::rewrapLabelText() {
+    FloatRect labelBounds = label.getLocalBounds();
+    label.setOrigin(labelBounds.left + labelBounds.width  / 2.0f,
+                    labelBounds.top  + labelBounds.height / 2.0f);
+    label.setPosition(shape.getPosition() + shape.getSize() / 2.0f);
 }
 
 

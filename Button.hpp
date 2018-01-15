@@ -41,10 +41,13 @@ protected:
     RectangleShape shadowShape;
     Text label;
 
-    static Font labelFont;
-    static Font initLabelFont();
+
+    void rewrapLabelText();
 
 private:
     bool pressed = false;
+
+    static Font labelFont;
+    static Font initLabelFont();
 
 };

@@ -11,11 +11,9 @@ MainButton::MainButton(Vector2f position)
     standShadow.setSize(Options::MainButtonSize + Vector2f(0.0f, -5.0f));
     standShadow.setFillColor(Options::StandardButtonShadowColor);
 
+    label.setFont(labelFont);
     label.setCharacterSize(Options::MainButtonTextSize);
-    FloatRect labelBounds = label.getLocalBounds();
-    label.setOrigin(labelBounds.left + labelBounds.width  / 2.0f,
-                    labelBounds.top  + labelBounds.height / 2.0f);
-    label.setPosition(shape.getPosition() + shape.getSize() / 2.0f);
+    rewrapLabelText();
 }
 
 
@@ -39,4 +37,13 @@ void MainButton::draw(RenderTarget& window, RenderStates states) const {
         window.draw(shape);
         window.draw(label);
     }
+}
+
+Font MainButton::labelFont = MainButton::initLabelFont();
+Font MainButton::initLabelFont() {
+    Font labelFont;
+    if (!labelFont.loadFromFile("res/Oswald-Regular.ttf")) {
+        exit(1);
+    }
+    return labelFont;
 }
