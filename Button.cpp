@@ -34,8 +34,8 @@ Button::Button(const Vector2f position)
 
 bool Button::isPressed() const { return pressed; }
 void Button::setPressed(bool value) { pressed = value; }
-void Button::press() { setPressed(true); onPress(); }
-void Button::release() { setPressed(false); onRelease(); }
+void Button::press() { onPress(); setPressed(true); }
+void Button::release() { if (pressed) onRelease(); setPressed(false); }
 void Button::toggle() { setPressed(!isPressed()); }
 
 
