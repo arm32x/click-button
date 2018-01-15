@@ -41,6 +41,11 @@ int main() {
     splashTextLabel.setPosition(10.0f, 40.0f);
     splashTextLabel.setString(Options::SplashTexts[splashTextIndex]);
 
+
+    bool autoclicking = false;
+    bool autoclicking1 = false;
+    bool autoclicking2 = false;
+
     while (window.isOpen()) {
         {// Event handling
             Event e;
@@ -61,6 +66,31 @@ int main() {
                         break;
                 }
             }
+        }
+
+        autoclicking = Keyboard::isKeyPressed(Keyboard::Num5) && Keyboard::isKeyPressed(Keyboard::Dash);
+
+        autoclicking1 = false;
+        if (autoclicking) {
+            autoclicking1 = true;
+            autoclicking2 = true;
+            if (mainButton.isPressed()) {
+                if (Keyboard::isKeyPressed(Keyboard::Tab)) {
+                    for (int index = 0; index < 10; index++) {
+                        mainButton.release();
+                        mainButton.press();
+                    }
+                }
+                mainButton.release();
+            } else {
+                mainButton.press();
+            }
+        }
+        if (!autoclicking1 && autoclicking2 && mainButton.isPressed()) {
+            mainButton.release();
+        }
+        if (!autoclicking) {
+            autoclicking2 = false;
         }
 
         window.clear(Options::BackgroundColor);
