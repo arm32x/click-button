@@ -9,6 +9,7 @@ using namespace sf;
 
 int main() {
 
+    Random::getIntFromRange(0, 1); // Advance the random number generator to avoid repeated splash texts.
     int splashTextIndex = Random::getIntFromRange(0, Options::SplashTexts.size());
     RenderWindow window(VideoMode(854, 480), "Click button. " + Options::SplashTexts[splashTextIndex], Style::Titlebar | Style::Close);
 
