@@ -13,7 +13,6 @@ namespace Options {
         "Realize this is a Cookie Clicker clone.",
         "Get bored.",
         "Batteries not included.",
-        "Buy stuff with points.",
         "Get wither."
     };
 
