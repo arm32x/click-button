@@ -13,6 +13,8 @@ class MainButton : public Button {
 public:
     MainButton(Vector2f position);
 
+    static long getScore();
+
 protected:
     virtual void draw(RenderTarget& window, RenderStates states) const;
 
@@ -27,6 +29,6 @@ private:
     static Font labelFont;
     static Font initLabelFont();
 
-    long score = 0;
+    static long score;
 
 };

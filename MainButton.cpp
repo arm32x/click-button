@@ -1,5 +1,7 @@
 #include "MainButton.hpp"
 
+long MainButton::score = 0;
+
 MainButton::MainButton(Vector2f position)
     : Button(Vector2f(position + Vector2f(10.0f, 10.0f)), Vector2f(Options::MainButtonSize + Vector2f(-20.0f, -25.0f)), Options::MainButtonColor, Options::MainButtonShadowColor, Options::MainButtonTextColor, "0") {
 
@@ -38,6 +40,8 @@ void MainButton::draw(RenderTarget& window, RenderStates states) const {
         window.draw(label);
     }
 }
+
+long MainButton::getScore() { return score; }
 
 Font MainButton::labelFont = MainButton::initLabelFont();
 Font MainButton::initLabelFont() {
