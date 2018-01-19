@@ -22,7 +22,7 @@ namespace Options {
     const        Color StandardButtonColor       = Color(0xCC, 0xCC, 0xCC);
     const        Color StandardButtonShadowColor = Color(0xAA, 0xAA, 0xAA);
     const        Color StandardButtonTextColor   = Color(0x21, 0x21, 0x21);
-    const unsigned int StandardButtonTextSize    = 16;
+    const unsigned int StandardButtonTextSize    = 15;
     const     Vector2f StandardButtonSize        = Vector2f(180.0f, 41.0f);
 
     const        Color MainButtonColor       = Color(0xF0, 0x3A, 0x3A);

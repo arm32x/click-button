@@ -75,7 +75,7 @@ void Button::rewrapLabelText() {
 Font Button::labelFont = Button::initLabelFont();
 Font Button::initLabelFont() {
     Font labelFont;
-    if (!labelFont.loadFromFile("res/RobotoCondensed-Regular.ttf")) {
+    if (!labelFont.loadFromFile("res/Oswald-Regular.ttf")) {
         exit(1);
     }
     return labelFont;
