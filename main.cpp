@@ -115,6 +115,8 @@ int main() {
             autoclicking2 = false;
         }
 
+        mainButton.update();
+
         window.clear(Options::BackgroundColor);
         window.draw(shopDivider);
         window.draw(shopHeader);

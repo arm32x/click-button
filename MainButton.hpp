@@ -13,7 +13,11 @@ class MainButton : public Button {
 public:
     MainButton(Vector2f position);
 
+    void update();
+
     static long getScore();
+    static void increaseCps(long by);
+    static void increasePower(long by);
 
 protected:
     virtual void draw(RenderTarget& window, RenderStates states) const;
@@ -30,5 +34,7 @@ private:
     static Font initLabelFont();
 
     static long score;
+    static long cps;
+    static long power;
 
 };

@@ -1,6 +1,8 @@
 #include "MainButton.hpp"
 
 long MainButton::score = 0;
+long MainButton::cps = 0;
+long MainButton::power = 0;
 
 MainButton::MainButton(Vector2f position)
     : Button(Vector2f(position + Vector2f(10.0f, 10.0f)), Vector2f(Options::MainButtonSize + Vector2f(-20.0f, -25.0f)), Options::MainButtonColor, Options::MainButtonShadowColor, Options::MainButtonTextColor, "0") {
@@ -41,7 +43,13 @@ void MainButton::draw(RenderTarget& window, RenderStates states) const {
     }
 }
 
+void MainButton::update() {
+    score += cps;
+}
+
 long MainButton::getScore() { return score; }
+void MainButton::increaseCps(long by) { cps += by; }
+void MainButton::increasePower(long by) { power += by; }
 
 Font MainButton::labelFont = MainButton::initLabelFont();
 Font MainButton::initLabelFont() {
