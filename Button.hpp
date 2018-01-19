@@ -35,6 +35,11 @@ public:
     void release();
     void toggle();
 
+    Color getFillColor() const;
+    void setFillColor(Color color);
+    Color getShadowColor() const;
+    void setShadowColor(Color color);
+
     FloatRect getGlobalBounds();
 
 protected:

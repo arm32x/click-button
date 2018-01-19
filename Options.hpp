@@ -24,6 +24,9 @@ namespace Options {
     const unsigned int StandardButtonTextSize    = 15;
     const     Vector2f StandardButtonSize        = Vector2f(180.0f, 41.0f);
 
+    const        Color DisabledButtonColor       = Color(0x88, 0x88, 0x88);
+    const        Color DisabledButtonShadowColor = Color(0x66, 0x66, 0x66);
+
     const        Color MainButtonColor       = Color(0xF0, 0x3A, 0x3A);
     const        Color MainButtonShadowColor = Color(0xC2, 0x2F, 0x2F);
     const        Color MainButtonTextColor   = Color(0xFA, 0xFA, 0xFA);

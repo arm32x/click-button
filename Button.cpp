@@ -39,6 +39,12 @@ void Button::release() { if (pressed) onRelease(); setPressed(false); }
 void Button::toggle() { setPressed(!isPressed()); }
 
 
+Color Button::getFillColor() const { return shape.getFillColor(); }
+void Button::setFillColor(Color color) { shape.setFillColor(color); }
+Color Button::getShadowColor() const { return shadowShape.getFillColor(); }
+void Button::setShadowColor(Color color) { shadowShape.setFillColor(color); }
+
+
 FloatRect Button::getGlobalBounds() {
     return FloatRect(shape.getPosition().x, shape.getPosition().y, shape.getSize().x, shape.getSize().y + 5.0f);
 }
