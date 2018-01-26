@@ -53,7 +53,7 @@ FloatRect Button::getGlobalBounds() {
 void Button::handleEvent(Event& e, const Window& window) {
     switch (e.type) {
         case Event::MouseButtonPressed:
-            if (Collision::pointToRect((Vector2f)Mouse::getPosition(window), getGlobalBounds())) {
+            if (e.mouseButton.button == Mouse::Left && Collision::pointToRect((Vector2f)Mouse::getPosition(window), getGlobalBounds())) {
                 press();
             }
             break;

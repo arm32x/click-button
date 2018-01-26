@@ -21,8 +21,7 @@ MainButton::MainButton(Vector2f position)
 
     onRelease = [this] () -> void {
         setScore(getScore() + getPower());
-        label.setString(std::to_string(getScore()));
-        rewrapLabelText();
+        updateScoreText();
     };
 }
 
@@ -51,6 +50,7 @@ void MainButton::draw(RenderTarget& window, RenderStates states) const {
 
 void MainButton::update() {
     score += cps / 60;
+    updateScoreText();
 }
 
 long MainButton::getScore() { return score; }
@@ -67,4 +67,10 @@ Font MainButton::initLabelFont() {
         exit(1);
     }
     return labelFont;
+}
+
+
+void MainButton::updateScoreText() {
+    label.setString(std::to_string((int)std::floor(getScore())));
+    rewrapLabelText();
 }

@@ -1,5 +1,6 @@
 #pragma once
 
+#include <cmath>
 #include <string>
 
 #include <SFML/Graphics.hpp>
@@ -43,5 +44,7 @@ private:
     static long score;
     static long cps;
     static long power;
+
+    void updateScoreText();
 
 };
