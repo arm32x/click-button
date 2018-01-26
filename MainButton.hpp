@@ -31,13 +31,14 @@ protected:
     RectangleShape stand;
     RectangleShape standShadow;
 
-    void onRelease();
-
 private:
     using Button::Button;
 
     static Font labelFont;
     static Font initLabelFont();
+
+    using Button::onPress;
+    using Button::onRelease;
 
     static long score;
     static long cps;

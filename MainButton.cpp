@@ -18,6 +18,12 @@ MainButton::MainButton(Vector2f position)
     label.setFont(labelFont);
     label.setCharacterSize(Options::MainButtonTextSize);
     rewrapLabelText();
+
+    onRelease = [this] () -> void {
+        setScore(getScore() + getPower());
+        label.setString(std::to_string(getScore()));
+        rewrapLabelText();
+    };
 }
 
 
@@ -61,10 +67,4 @@ Font MainButton::initLabelFont() {
         exit(1);
     }
     return labelFont;
-}
-
-void MainButton::onRelease() {
-    score++;
-    label.setString(std::to_string(score));
-    rewrapLabelText();
 }

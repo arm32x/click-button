@@ -34,8 +34,8 @@ Button::Button(const Vector2f position)
 
 bool Button::isPressed() const { return pressed; }
 void Button::setPressed(bool value) { pressed = value; }
-void Button::press() { onPress(); setPressed(true); }
-void Button::release() { if (pressed) onRelease(); setPressed(false); }
+void Button::press() { if (onPress != nullptr) onPress(); setPressed(true); }
+void Button::release() { if (isPressed() && onRelease != nullptr) onRelease(); setPressed(false); }
 void Button::toggle() { setPressed(!isPressed()); }
 
 
@@ -47,6 +47,22 @@ void Button::setShadowColor(Color color) { shadowShape.setFillColor(color); }
 
 FloatRect Button::getGlobalBounds() {
     return FloatRect(shape.getPosition().x, shape.getPosition().y, shape.getSize().x, shape.getSize().y + 5.0f);
+}
+
+
+void Button::handleEvent(Event& e, const Window& window) {
+    switch (e.type) {
+        case Event::MouseButtonPressed:
+            if (Collision::pointToRect((Vector2f)Mouse::getPosition(window), getGlobalBounds())) {
+                press();
+            }
+            break;
+        case Event::MouseButtonReleased:
+            release();
+            break;
+        default:
+            break;
+    }
 }
 
 

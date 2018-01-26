@@ -1,11 +1,13 @@
 #pragma once
 
 #include <cmath>
+#include <functional>
 #include <string>
 
 #include <SFML/Graphics.hpp>
 using namespace sf;
 
+#include "Collision.hpp"
 #include "Options.hpp"
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -42,15 +44,17 @@ public:
 
     FloatRect getGlobalBounds();
 
+    std::function<void()> onPress;
+    std::function<void()> onRelease;
+
+    void handleEvent(Event& e, const Window& window);
+
 protected:
     virtual void draw(RenderTarget& window, RenderStates states) const;
 
     RectangleShape shape;
     RectangleShape shadowShape;
     Text label;
-
-    virtual void onPress() { };
-    virtual void onRelease() { };
 
     void rewrapLabelText();
 

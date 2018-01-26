@@ -72,17 +72,14 @@ int main() {
         {// Event handling
             Event e;
             while (window.pollEvent(e)) {
+                mainButton.handleEvent(e, window);
                 switch (e.type) {
                     case Event::Closed:
                         window.close();
                         break;
                     case Event::MouseButtonPressed:
-                        if (e.mouseButton.button == Mouse::Left && Collision::pointToRect(window.mapPixelToCoords(Mouse::getPosition(window)), mainButton.getGlobalBounds())) {
-                            mainButton.press();
-                        }
                         break;
                     case Event::MouseButtonReleased:
-                        mainButton.release();
                         break;
                     default:
                         break;
