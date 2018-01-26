@@ -16,6 +16,12 @@ public:
     void update();
 
     static long getScore();
+    static void setScore(long value);
+    static long getCps();
+    static void setCps(long value);
+    static long getPower();
+    static void setPower(long value);
+
     static void increaseCps(long by);
     static void increasePower(long by);
 
