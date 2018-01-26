@@ -1,7 +1,7 @@
 #include "MainButton.hpp"
 
-long MainButton::score = 0;
-long MainButton::cps = 0;
+double MainButton::score = 0;
+double MainButton::cps = 0;
 long MainButton::power = 1;
 
 MainButton::MainButton(Vector2f position)
@@ -53,10 +53,10 @@ void MainButton::update() {
     updateScoreText();
 }
 
-long MainButton::getScore() { return score; }
-void MainButton::setScore(long value) { score = value; }
-long MainButton::getCps() { return cps; }
-void MainButton::setCps(long value) { cps = value; }
+double MainButton::getScore() { return score; }
+void MainButton::setScore(double value) { score = value; }
+double MainButton::getCps() { return cps; }
+void MainButton::setCps(double value) { cps = value; }
 long MainButton::getPower() { return power; }
 void MainButton::setPower(long value) { power = value; }
 

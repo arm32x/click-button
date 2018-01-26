@@ -13,6 +13,7 @@ int main() {
     Random::getIntFromRange(0, 1); // Advance the random number generator to avoid repeated splash texts.
     int splashTextIndex = Random::getIntFromRange(0, Options::SplashTexts.size());
     RenderWindow window(VideoMode(854, 480), "Click button. " + Options::SplashTexts[splashTextIndex], Style::Titlebar | Style::Close);
+    window.setFramerateLimit(60); // Make sure that CPS (Clicks Per Second) is ACTUALLY PER SECOND!!! (see `MainButton::update()`)
 
 
     MainButton mainButton(Vector2f(100.0f, 150.0f));

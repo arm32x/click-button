@@ -16,15 +16,12 @@ public:
 
     void update();
 
-    static long getScore();
-    static void setScore(long value);
-    static long getCps();
-    static void setCps(long value);
+    static double getScore();
+    static void setScore(double value);
+    static double getCps();
+    static void setCps(double value);
     static long getPower();
     static void setPower(long value);
-
-    static void increaseCps(long by);
-    static void increasePower(long by);
 
 protected:
     virtual void draw(RenderTarget& window, RenderStates states) const;
@@ -41,8 +38,8 @@ private:
     using Button::onPress;
     using Button::onRelease;
 
-    static long score;
-    static long cps;
+    static double score;
+    static double cps;
     static long power;
 
     void updateScoreText();
