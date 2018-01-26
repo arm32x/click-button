@@ -35,4 +35,6 @@ namespace Options {
 
     const Color DividerColor = Color(0xFF, 0xFF, 0xFF, 0.10 * 0xFF);
 
+    const float ShopPriceHikeRate = 1.25f;
+
 };

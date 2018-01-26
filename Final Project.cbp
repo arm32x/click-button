@@ -39,6 +39,8 @@
 		<Unit filename="Options.hpp" />
 		<Unit filename="Random.cpp" />
 		<Unit filename="Random.hpp" />
+		<Unit filename="ShopItem.cpp" />
+		<Unit filename="ShopItem.hpp" />
 		<Unit filename="main.cpp" />
 		<Extensions>
 			<code_completion />

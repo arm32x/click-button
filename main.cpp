@@ -6,6 +6,7 @@ using namespace sf;
 #include "MainButton.hpp"
 #include "Options.hpp"
 #include "Random.hpp"
+#include "ShopItem.hpp"
 
 int main() {
 
@@ -64,6 +65,9 @@ int main() {
     shopSlogan.setString("Increase your clicking power.");
 
 
+    ShopItem testItem(0, "Finger Puppet", "Give me money. Please?", 100, 1, 1);
+
+
     bool autoclicking = false;
     bool autoclicking1 = false;
     bool autoclicking2 = false;
@@ -73,6 +77,7 @@ int main() {
             Event e;
             while (window.pollEvent(e)) {
                 mainButton.handleEvent(e, window);
+                testItem.handleEvent(e, window);
                 switch (e.type) {
                     case Event::Closed:
                         window.close();
@@ -109,11 +114,13 @@ int main() {
         }
 
         mainButton.update();
+        testItem.update();
 
         window.clear(Options::BackgroundColor);
         window.draw(shopDivider);
         window.draw(shopHeader);
         window.draw(shopSlogan);
+        window.draw(testItem);
         window.draw(logo);
         window.draw(splashTextLabel);
         window.draw(mainButton);
