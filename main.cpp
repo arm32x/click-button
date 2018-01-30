@@ -78,7 +78,11 @@ int main() {
     shopSlogan.setString("Increase your clicking power.");
 
 
-    ShopItem testItem(0, "Finger Puppet", "Give me money. Please?", 100, 1, 1);
+
+    ShopItem shopItemCursor(0, "Cursor", "Increases CPS by 1", 100, 0, 1);
+    ShopItem shopItemGloves(1, "Gloves", "Increases power by 1", 125, 1, 0);
+    ShopItem shopItemCustomCursor(2, "Custom Cursor", "Increases CPS by 10", 900, 0, 10);
+    ShopItem shopItemCustomGloves(3, "Custom Gloves", "Increases power by 10", 1150, 10, 0);
 
 
     bool autoclicking = false;
@@ -90,7 +94,10 @@ int main() {
             Event e;
             while (window.pollEvent(e)) {
                 mainButton.handleEvent(e, window);
-                testItem.handleEvent(e, window);
+                shopItemCursor.handleEvent(e, window);
+                shopItemGloves.handleEvent(e, window);
+                shopItemCustomCursor.handleEvent(e, window);
+                shopItemCustomGloves.handleEvent(e, window);
                 switch (e.type) {
                     case Event::Closed:
                         window.close();
@@ -127,13 +134,19 @@ int main() {
         }
 
         mainButton.update();
-        testItem.update();
+        shopItemCursor.update();
+        shopItemGloves.update();
+        shopItemCustomCursor.update();
+        shopItemCustomGloves.update();
 
         window.clear(Options::BackgroundColor);
         window.draw(shopDivider);
         window.draw(shopHeader);
         window.draw(shopSlogan);
-        window.draw(testItem);
+        window.draw(shopItemCursor);
+        window.draw(shopItemGloves);
+        window.draw(shopItemCustomCursor);
+        window.draw(shopItemCustomGloves);
         window.draw(logo);
         window.draw(splashTextLabel);
         window.draw(mainButton);
