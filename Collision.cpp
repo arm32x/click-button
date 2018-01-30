@@ -11,3 +11,12 @@ bool Collision::pointToRect(Vector2f point, FloatRect rect) {
 
     return true;
 }
+
+bool Collision::pointToCircle(Vector2f point, Vector2f circleCenter, float circleRadius) {
+    float xDistance = point.x - circleCenter.x;
+    float yDistance = point.y - circleCenter.y;
+
+    float distanceSquared = xDistance * xDistance + yDistance * yDistance;
+
+    return distanceSquared <= circleRadius * circleRadius;
+}

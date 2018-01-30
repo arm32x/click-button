@@ -41,6 +41,14 @@ namespace Options {
     const     Vector2f MainButtonSize        = Vector2f(275.0f, 150.0f); ///< The size of the main button.
 
     const Color DividerColor = Color(0xFF, 0xFF, 0xFF, 0.10 * 0xFF); ///< The color of dividers.
+    const float ShadeOpacity = 0.65 * 0xFF;                          ///< How opaque should shades (semi-transparent covers) be?
+
+    const float IconButtonRadius      = 20.0f;                                ///< The radius of a normal icon button.
+    const float MiniIconButtonRadius  = 16.0f;                                ///< The radius of a mini icon button.
+    const Color IconButtonColor       = Color(0xFF, 0xFF, 0xFF, 0.00 * 0xFF); ///< The background color of an icon button.
+    const Color ActiveIconButtonColor = Color(0xFF, 0xFF, 0xFF, 0.05 * 0xFF); ///< The background color of a pressed icon button.
+    const float IconButtonBorderWidth = 1.0f;                                 ///< The border width of an icon button.
+    const Color IconButtonBorderColor = Options::DividerColor;                ///< The border color of an icon button.
 
     const float ShopPriceHikeRate = 1.35f; ///< How much to increase the price of a shop item by after it is bought. @see ShopItem
 
