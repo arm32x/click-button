@@ -1,3 +1,5 @@
+/// @file ShopItem.cpp
+
 #include "ShopItem.hpp"
 
 ShopItem::ShopItem(const int index, const std::string name, const std::string description, long price, std::function<void()> buyAction)

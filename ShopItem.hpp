@@ -1,3 +1,5 @@
+/// @file ShopItem.hpp
+
 #pragma once
 
 #include <cmath>

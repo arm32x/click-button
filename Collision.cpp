@@ -1,3 +1,5 @@
+/// @file Collision.cpp
+
 #include "Collision.hpp"
 
 bool Collision::pointToRect(Vector2f point, FloatRect rect) {

@@ -1,3 +1,5 @@
+/// @file MainButton.hpp
+
 #pragma once
 
 #include <cmath>

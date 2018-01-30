@@ -1,3 +1,5 @@
+/// @file Collision.hpp
+
 #pragma once
 
 #include <SFML/Graphics.hpp>

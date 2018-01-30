@@ -1,3 +1,5 @@
+/// @file MainButton.cpp
+
 #include "MainButton.hpp"
 
 double MainButton::score = 0;
