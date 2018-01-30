@@ -112,6 +112,21 @@ int main() {
                                   Options::ShadeOpacity));
 
 
+    Text statsHeader;
+    statsHeader.setFont(logoFont);
+    statsHeader.setFillColor(Color(0xFF, 0xFF, 0xFF));
+    statsHeader.setCharacterSize(24);
+    statsHeader.setPosition(496.0f, 10.0f);
+    statsHeader.setString("View stats.");
+
+    Text statsSlogan;
+    statsSlogan.setFont(splashTextFont);
+    statsSlogan.setFillColor(Color(0xFF, 0xFF, 0xFF));
+    statsSlogan.setCharacterSize(12);
+    statsSlogan.setPosition(496.0f, 40.0f);
+    statsSlogan.setString("See how much time you've lost.");
+
+
     Enemy(50);
 
 
@@ -185,19 +200,31 @@ int main() {
         for (unsigned int index = 0; index < Enemy::enemies.size(); index++) {
             window.draw(Enemy::enemies[index]);
         }
-        window.draw(shopBackground);
-        window.draw(shopDivider);
-        window.draw(shopHeader);
-        window.draw(shopSlogan);
-        window.draw(shopItemCursor);
-        window.draw(shopItemGloves);
-        window.draw(shopItemCustomCursor);
-        window.draw(shopItemCustomGloves);
+        // Don't draw the shop if the game is paused because the stats page
+        // covers it up.
+        if (!gamePaused) {
+            window.draw(shopBackground);
+            window.draw(shopDivider);
+            window.draw(shopHeader);
+            window.draw(shopSlogan);
+            window.draw(shopItemCursor);
+            window.draw(shopItemGloves);
+            window.draw(shopItemCustomCursor);
+            window.draw(shopItemCustomGloves);
+        }
         window.draw(mainButton);
         if (gamePaused) window.draw(pauseShade);
         window.draw(pauseButton);
         window.draw(logo);
         window.draw(splashTextLabel);
+        if (gamePaused) {
+            // Just reusing some variables, don't mind me. ;)
+            window.draw(shopBackground);
+            window.draw(shopDivider);
+
+            window.draw(statsHeader);
+            window.draw(statsSlogan);
+        }
         window.display();
     }
 
