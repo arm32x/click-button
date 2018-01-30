@@ -1,3 +1,5 @@
+/// @file main.cpp
+
 #include <SFML/Graphics.hpp>
 using namespace sf;
 
@@ -7,6 +9,16 @@ using namespace sf;
 #include "Options.hpp"
 #include "Random.hpp"
 #include "ShopItem.hpp"
+
+////////////////////////////////////////////////////////////////////////////////
+/// @page fontinit Font initialization
+///
+/// Fonts are initialized by first declaring a font variable, and then assigning
+/// the return value of an initialization function to it.
+///
+/// Each font object will only be used at one size throughout the program, but
+/// multiple font objects can reference the same font file.
+////////////////////////////////////////////////////////////////////////////////
 
 int main() {
 

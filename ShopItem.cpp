@@ -19,7 +19,13 @@ ShopItem::ShopItem(const int index, const std::string name, const std::string de
     priceLabel.setFont(priceFont);
     priceLabel.setCharacterSize(18);
     priceLabel.setString(std::to_string(price));
-    rewrapPriceText();
+
+    quantityLabel.setPosition(getCoordsWithIndex(index, Vector2f(198.0f, 28.0f)));
+    quantityLabel.setFont(descriptionFont);
+    quantityLabel.setCharacterSize(14);
+    quantityLabel.setString("×" + std::to_string(quantity));
+
+    rewrapText();
 
     buyButton.onRelease = std::bind([this, &price = this->price] (std::function<void()> buyAction) -> void {
         buyAction();
@@ -27,7 +33,9 @@ ShopItem::ShopItem(const int index, const std::string name, const std::string de
 
         price = std::round(price * Options::ShopPriceHikeRate);
         priceLabel.setString(std::to_string(price));
-        rewrapPriceText();
+        quantity++;
+        quantityLabel.setString("×" + std::to_string(quantity));
+        rewrapText();
     }, buyAction);
 }
 
@@ -48,6 +56,7 @@ void ShopItem::draw(RenderTarget& window, RenderStates states) const {
     window.draw(descriptionLabel);
     window.draw(title);
     window.draw(buyButton);
+    window.draw(quantityLabel);
     window.draw(priceLabel);
 }
 
@@ -79,9 +88,17 @@ void ShopItem::handleEvent(Event& e, Window& window) {
 }
 
 
-void ShopItem::rewrapPriceText() {
+int ShopItem::getQuantityOwned() {
+    return quantity;
+}
+
+
+void ShopItem::rewrapText() {
     FloatRect priceLabelBounds = priceLabel.getLocalBounds();
     priceLabel.setOrigin(Vector2f(std::round(priceLabelBounds.left + priceLabelBounds.width), 0.0f));
+
+    FloatRect quantityLabelBounds = quantityLabel.getLocalBounds();
+    quantityLabel.setOrigin(Vector2f(std::round(quantityLabelBounds.left + quantityLabelBounds.width), 0.0f));
 }
 
 

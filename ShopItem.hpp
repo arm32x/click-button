@@ -29,25 +29,24 @@ public:
     void update();
     void handleEvent(Event& e, Window& window);
 
+    int getQuantityOwned();
+
 protected:
     Text title;
     Text descriptionLabel;
     Button buyButton;
     Text priceLabel;
+    Text quantityLabel;
 
     long price;
     bool insufficientFunds;
+    int quantity = 0;
 
     virtual void draw(RenderTarget& window, RenderStates states) const;
 
-    void rewrapPriceText();
+    void rewrapText();
 
     static Vector2f getCoordsWithIndex(const int index, const Vector2f position);
-
-    /// \page fonts Font initialization
-    ///
-    /// Fonts are initialized by calling the initialization method and assigning
-    /// the result to the actual font.
 
     static Font titleFont;
     static Font initTitleFont();

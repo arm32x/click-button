@@ -74,5 +74,13 @@ Font MainButton::initLabelFont() {
 
 void MainButton::updateScoreText() {
     label.setString(std::to_string((int)std::floor(getScore())));
+    if (std::floor(getScore()) < 0) {
+        label.setFillColor(Color(Options::MainButtonTextColor.r,
+                                 Options::MainButtonTextColor.g,
+                                 Options::MainButtonTextColor.b,
+                                 0.35 * 0xFF));
+    } else {
+        label.setFillColor(Options::MainButtonTextColor);
+    }
     rewrapLabelText();
 }

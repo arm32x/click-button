@@ -19,7 +19,8 @@ namespace Options {
         "Realize this is a Cookie Clicker clone.",
         "Get bored.",
         "Batteries not included.",
-        "Get wither."
+        "Get wither.",
+        "Waste time."
     };
 
     const Color BackgroundColor = Color(0x21, 0x21, 0x2B); ///< The background color of the main window.
