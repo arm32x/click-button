@@ -5,6 +5,8 @@ using namespace sf;
 
 #include "Button.hpp"
 #include "Collision.hpp"
+#include "IconButton.hpp"
+#include "Icons.hpp"
 #include "MainButton.hpp"
 #include "Options.hpp"
 #include "Random.hpp"
@@ -85,6 +87,26 @@ int main() {
     ShopItem shopItemCustomGloves(3, "Custom Gloves", "Increases power by 10", 1150, 10, 0);
 
 
+    IconButton pauseButton(Vector2f(28.0f, 452.0f), false, "pause");
+    bool gamePaused = false;
+    pauseButton.onRelease = [&pauseButton, &gamePaused] () -> void {
+        gamePaused = !gamePaused;
+        if (gamePaused) {
+            pauseButton.setIcon("play");
+        } else {
+            pauseButton.setIcon("pause");
+        }
+    };
+
+    RectangleShape pauseShade;
+    pauseShade.setSize(Vector2f(854.0f, 480.0f)); // Cover the entire screen
+    pauseShade.setPosition(Vector2f(0.0f, 0.0f));
+    pauseShade.setFillColor(Color(Options::BackgroundColor.r,
+                                  Options::BackgroundColor.g,
+                                  Options::BackgroundColor.b,
+                                  Options::ShadeOpacity));
+
+
     bool autoclicking = false;
     bool autoclicking1 = false;
     bool autoclicking2 = false;
@@ -93,11 +115,14 @@ int main() {
         {// Event handling
             Event e;
             while (window.pollEvent(e)) {
-                mainButton.handleEvent(e, window);
-                shopItemCursor.handleEvent(e, window);
-                shopItemGloves.handleEvent(e, window);
-                shopItemCustomCursor.handleEvent(e, window);
-                shopItemCustomGloves.handleEvent(e, window);
+                if (!gamePaused) {
+                    mainButton.handleEvent(e, window);
+                    shopItemCursor.handleEvent(e, window);
+                    shopItemGloves.handleEvent(e, window);
+                    shopItemCustomCursor.handleEvent(e, window);
+                    shopItemCustomGloves.handleEvent(e, window);
+                }
+                pauseButton.handleEvent(e, window);
                 switch (e.type) {
                     case Event::Closed:
                         window.close();
@@ -108,38 +133,42 @@ int main() {
             }
         }
 
-        autoclicking = Keyboard::isKeyPressed(Keyboard::Num5) && Keyboard::isKeyPressed(Keyboard::Dash);
+        if (!gamePaused) {
+            autoclicking = Keyboard::isKeyPressed(Keyboard::Num5) && Keyboard::isKeyPressed(Keyboard::Dash);
 
-        autoclicking1 = false;
-        if (autoclicking) {
-            autoclicking1 = true;
-            autoclicking2 = true;
-            if (mainButton.isPressed()) {
-                if (Keyboard::isKeyPressed(Keyboard::Tab)) {
-                    for (int index = 0; index < 10; index++) {
-                        mainButton.release();
-                        mainButton.press();
+            autoclicking1 = false;
+            if (autoclicking) {
+                autoclicking1 = true;
+                autoclicking2 = true;
+                if (mainButton.isPressed()) {
+                    if (Keyboard::isKeyPressed(Keyboard::Tab)) {
+                        for (int index = 0; index < 10; index++) {
+                            mainButton.release();
+                            mainButton.press();
+                        }
                     }
+                    mainButton.release();
+                } else {
+                    mainButton.press();
                 }
-                mainButton.release();
-            } else {
-                mainButton.press();
             }
-        }
-        if (!autoclicking1 && autoclicking2 && mainButton.isPressed()) {
-            mainButton.release();
-        }
-        if (!autoclicking) {
-            autoclicking2 = false;
+            if (!autoclicking1 && autoclicking2 && mainButton.isPressed()) {
+                mainButton.release();
+            }
+            if (!autoclicking) {
+                autoclicking2 = false;
+            }
+
+            mainButton.update();
+            shopItemCursor.update();
+            shopItemGloves.update();
+            shopItemCustomCursor.update();
+            shopItemCustomGloves.update();
         }
 
-        mainButton.update();
-        shopItemCursor.update();
-        shopItemGloves.update();
-        shopItemCustomCursor.update();
-        shopItemCustomGloves.update();
 
         window.clear(Options::BackgroundColor);
+        window.draw(shopBackground);
         window.draw(shopDivider);
         window.draw(shopHeader);
         window.draw(shopSlogan);
@@ -147,9 +176,11 @@ int main() {
         window.draw(shopItemGloves);
         window.draw(shopItemCustomCursor);
         window.draw(shopItemCustomGloves);
+        window.draw(mainButton);
+        if (gamePaused) window.draw(pauseShade);
+        window.draw(pauseButton);
         window.draw(logo);
         window.draw(splashTextLabel);
-        window.draw(mainButton);
         window.display();
     }
 
