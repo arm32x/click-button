@@ -14,9 +14,9 @@ Enemy::Enemy(const Vector2f position, long attack)
     attackLabel.setString("-" + std::to_string(attack));
     rewrapLabelText();
 
-    onRelease = std::bind(&this->destroy, this); // When the enemy is clicked, destroy it.
-
     enemies.push_back(*this); // Put a copy of this enemy into the enemies `std::vector`.
+
+    enemies.back().onRelease = std::bind(&Enemy::destroy, &enemies.back()); // When the enemy is clicked, destroy it.
 }
 
 /// @param attack @see Enemy::attack
