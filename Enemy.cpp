@@ -16,7 +16,7 @@ Enemy::Enemy(const Vector2f position, long attack)
 
     enemies.push_back(*this); // Put a copy of this enemy into the enemies `std::vector`.
 
-    enemies.back().onRelease = std::bind(&Enemy::destroy, &enemies.back()); // When the enemy is clicked, destroy it.
+    enemies.back().onPress = std::bind(&Enemy::destroy, &enemies.back()); // When the enemy is clicked, destroy it.
 }
 
 /// @param attack @see Enemy::attack
