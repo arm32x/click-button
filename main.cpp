@@ -5,6 +5,7 @@ using namespace sf;
 
 #include "Button.hpp"
 #include "Collision.hpp"
+#include "Enemy.hpp"
 #include "IconButton.hpp"
 #include "Icons.hpp"
 #include "MainButton.hpp"
@@ -79,6 +80,10 @@ int main() {
     shopSlogan.setPosition(496.0f, 40.0f);
     shopSlogan.setString("Increase your clicking power.");
 
+    RectangleShape shopBackground;
+    shopBackground.setSize(Vector2f(379.0f, 480.0f));
+    shopBackground.setPosition(Vector2f(475.0f, 0.0f));
+    shopBackground.setFillColor(Options::BackgroundColor);
 
 
     ShopItem shopItemCursor(0, "Cursor", "Increases CPS by 1", 100, 0, 1);
@@ -107,6 +112,9 @@ int main() {
                                   Options::ShadeOpacity));
 
 
+    Enemy(50);
+
+
     bool autoclicking = false;
     bool autoclicking1 = false;
     bool autoclicking2 = false;
@@ -121,6 +129,9 @@ int main() {
                     shopItemGloves.handleEvent(e, window);
                     shopItemCustomCursor.handleEvent(e, window);
                     shopItemCustomGloves.handleEvent(e, window);
+                    for (unsigned int index = 0; index < Enemy::enemies.size(); index++) {
+                        Enemy::enemies[index].handleEvent(e, window);
+                    }
                 }
                 pauseButton.handleEvent(e, window);
                 switch (e.type) {
@@ -164,10 +175,16 @@ int main() {
             shopItemGloves.update();
             shopItemCustomCursor.update();
             shopItemCustomGloves.update();
+            for (unsigned int index = 0; index < Enemy::enemies.size(); index++) {
+                Enemy::enemies[index].update(mainButton);
+            }
         }
 
 
         window.clear(Options::BackgroundColor);
+        for (unsigned int index = 0; index < Enemy::enemies.size(); index++) {
+            window.draw(Enemy::enemies[index]);
+        }
         window.draw(shopBackground);
         window.draw(shopDivider);
         window.draw(shopHeader);

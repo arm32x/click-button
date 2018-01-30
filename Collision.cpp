@@ -20,3 +20,18 @@ bool Collision::pointToCircle(Vector2f point, Vector2f circleCenter, float circl
 
     return distanceSquared <= circleRadius * circleRadius;
 }
+
+
+bool Collision::circleToRect(Vector2f circleCenter, float circleRadius, FloatRect rect) {
+    // Find closest point on the rectangle to the circle's center.
+    Vector2f closestPoint = circleCenter;
+
+    if (circleCenter.x < rect.left)               closestPoint.x = rect.left;
+    if (circleCenter.x > rect.left + rect.width)  closestPoint.x = rect.left + rect.width;
+
+    if (circleCenter.y < rect.top)                closestPoint.y = rect.top;
+    if (circleCenter.y > rect.top  + rect.height) closestPoint.y = rect.top  + rect.height;
+
+    // Do a point-to-circle collision check with our new point.
+    return pointToCircle(closestPoint, circleCenter, circleRadius);
+}

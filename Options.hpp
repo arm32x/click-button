@@ -50,6 +50,10 @@ namespace Options {
     const float IconButtonBorderWidth = 1.0f;                                 ///< The border width of an icon button.
     const Color IconButtonBorderColor = Options::DividerColor;                ///< The border color of an icon button.
 
+    const float EnemySpawnMargin         = -20.0f; ///< How close to the edge an enemy will spawn. Negative numbers are offscreen. @see Enemy::getSpawnPosition()
+    const float EnemyAttackLabelTextSize = 11.0f;  ///< The font size for the small label on an enemy.
+    const float EnemySpeed               = 1.0f;   ///< The speed of the enemy, in pixels per frame.
+
     const float ShopPriceHikeRate = 1.35f; ///< How much to increase the price of a shop item by after it is bought. @see ShopItem
 
 };

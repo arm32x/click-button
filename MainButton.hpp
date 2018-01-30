@@ -25,6 +25,8 @@ public:
     static long getPower();
     static void setPower(long value);
 
+    FloatRect getGlobalBounds();
+
 protected:
     virtual void draw(RenderTarget& window, RenderStates states) const;
 

@@ -62,6 +62,15 @@ void MainButton::setCps(double value) { cps = value; }
 long MainButton::getPower() { return power; }
 void MainButton::setPower(long value) { power = value; }
 
+/// Returns a rectangle representing the global bounds of this button. Global
+/// bounds is a term used by SFML to represent a rectangle containing the X
+/// and Y positions of a shape, along with its width and height.
+///
+/// @return The global bounds of this button.
+FloatRect MainButton::getGlobalBounds() {
+    return FloatRect(stand.getPosition().x, stand.getPosition().y, stand.getSize().x, stand.getSize().y + 5.0f);
+}
+
 Font MainButton::labelFont = MainButton::initLabelFont();
 Font MainButton::initLabelFont() {
     Font labelFont;
