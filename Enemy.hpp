@@ -32,8 +32,7 @@ public:
     Enemy(const Vector2f position, long attack);
     Enemy(long attack);
 
-    static std::vector<Enemy> enemies; ///< A list of all enemies in game.
-    void destroy(); ///< Destroy this enemy.
+    static std::function<void(Enemy* enemy)> destroy;
 
     Vector2f getSpawnPosition();
 

@@ -35,6 +35,7 @@ float lerp(float begin, float end, float t) {
 /// multiple font objects can reference the same font file.
 ////////////////////////////////////////////////////////////////////////////////
 
+#include <iostream>
 int main() {
 
     Random::getIntFromRange(0, 1); // Advance the random number generator to avoid repeated splash texts.
@@ -139,6 +140,15 @@ int main() {
     statsSlogan.setString("See how much time you've lost.");
 
 
+    std::vector<Enemy> enemies; ///< A list of all enemies in-game.
+    Enemy::destroy = [&enemies] (Enemy* enemy) -> void {
+        std::cout << "Time to go nuclear on the enemy at " << enemy << "." << std::endl;
+        for (unsigned int index = 0; index < enemies.size(); index++) {
+            if (&enemies[index] == enemy) {
+                enemies.erase(enemies.begin() + index);
+            }
+        }
+    };
     bool firstEnemySpawned = false;
     float enemySpawnTimer = 0.0f;
 
@@ -157,8 +167,8 @@ int main() {
                     shopItemGloves.handleEvent(e, window);
                     shopItemCustomCursor.handleEvent(e, window);
                     shopItemCustomGloves.handleEvent(e, window);
-                    for (unsigned int index = 0; index < Enemy::enemies.size(); index++) {
-                        Enemy::enemies[index].handleEvent(e, window);
+                    for (unsigned int index = 0; index < enemies.size(); index++) {
+                        enemies[index].handleEvent(e, window);
                     }
                 }
                 pauseButton.handleEvent(e, window);
@@ -203,27 +213,27 @@ int main() {
             shopItemGloves.update();
             shopItemCustomCursor.update();
             shopItemCustomGloves.update();
-            for (unsigned int index = 0; index < Enemy::enemies.size(); index++) {
-                Enemy::enemies[index].update(mainButton);
+            for (unsigned int index = 0; index < enemies.size(); index++) {
+                enemies[index].update(mainButton);
             }
 
             if (MainButton::getTotalScore() >= 50 && !firstEnemySpawned) {
-                Enemy(10);
+                enemies.push_back(Enemy(10));
                 firstEnemySpawned = true;
             } else if (MainButton::getTotalScore() >= 100) {
                 enemySpawnTimer += MainButton::getTotalScore() >= Options::ScoreGoal ? Options::MaxEnemySpawnRate
                                    : lerp(Options::MinEnemySpawnRate, Options::MaxEnemySpawnRate,
                                           (MainButton::getTotalScore() - 100) / (Options::ScoreGoal - 100));
                 while (enemySpawnTimer >= 60.0f) {
-                    Enemy(50);
+                    enemies.push_back(Enemy(50));
                     enemySpawnTimer -= 60.0f;
                 }
             }
         }
 
         window.clear(Options::BackgroundColor);
-        for (unsigned int index = 0; index < Enemy::enemies.size(); index++) {
-            window.draw(Enemy::enemies[index]);
+        for (unsigned int index = 0; index < enemies.size(); index++) {
+            window.draw(enemies[index]);
         }
         // Don't draw the shop if the game is paused because the stats page
         // covers it up.

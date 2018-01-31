@@ -2,7 +2,7 @@
 
 #include "Enemy.hpp"
 
-std::vector<Enemy> Enemy::enemies;
+std::function<void(Enemy* enemy)> Enemy::destroy;
 
 /// @param position The position to spawn the center of the enemy at.
 /// @param attack   @see Enemy::attack
@@ -14,25 +14,12 @@ Enemy::Enemy(const Vector2f position, long attack)
     attackLabel.setString("-" + std::to_string(attack));
     rewrapLabelText();
 
-    enemies.push_back(*this); // Put a copy of this enemy into the enemies `std::vector`.
-
-    enemies.back().onPress = std::bind(&Enemy::destroy, &enemies.back()); // When the enemy is clicked, destroy it.
+    onPress = std::bind(destroy, this);
 }
 
 /// @param attack @see Enemy::attack
 Enemy::Enemy(long attack)
     : Enemy(getSpawnPosition(), attack) { }
-
-
-void Enemy::destroy() {
-    // To destroy the enemy, all we need to do is remove it from the enemies
-    // `std::vector`.
-    for (unsigned int index = 0; index < enemies.size(); index++) { // First, we loop through all of the enemies.
-        if (&enemies[index] == this) { // If the address is the same as this one, it's the same enemy.
-            enemies.erase(enemies.begin() + index); // So we delete it.
-        }
-    }
-}
 
 
 Vector2f Enemy::getSpawnPosition() {
@@ -74,7 +61,7 @@ void Enemy::update(MainButton& mainButton) {
         // Deducting the score involves some basic subtraction:
         MainButton::setScore(MainButton::getScore() - attack);
 
-        destroy(); // And then we need to destroy the enemy.
+        destroy(this); // And then we need to destroy the enemy.
     }
 
 

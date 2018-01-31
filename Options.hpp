@@ -58,6 +58,6 @@ namespace Options {
 
     const  long ScoreGoal         = 10000; ///< When enemy spawn rates will stop increasing.
     const float MinEnemySpawnRate = 0.2f;  ///< The slowest enemies can spawn, in enemies per second.
-    const float MaxEnemySpawnRate = 10.0f; ///< The fastest enemies can spawn, in enemies per second.
+    const float MaxEnemySpawnRate = 2.0f; ///< The fastest enemies can spawn, in enemies per second.
 
 };
