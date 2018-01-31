@@ -5,7 +5,7 @@
 std::map<const std::string, Texture> Icons::textures;
 
 Texture& Icons::getTexture(const std::string iconName) {
-    if (textures.count(iconName) < 1) {
+    if (textures.count(iconName) < 1) {// Checks if the texture is already loaded.
         textures[iconName] = Texture();
         if (!textures[iconName].loadFromFile("res/icons/" + iconName + ".png")) {
             exit(1);

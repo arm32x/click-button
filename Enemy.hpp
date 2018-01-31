@@ -34,6 +34,7 @@ public:
 
     static std::function<void(Enemy* enemy)> destroy;
 
+    /// Get a random position along the edges of the play area for enemies to spawn in.
     Vector2f getSpawnPosition();
 
     void update(MainButton& mainButton);
@@ -54,6 +55,7 @@ protected:
 private:
     using IconButton::icon; // This is to prevent an icon from being added to an enemy.
 
+    // Prevents anything from messing with intended click actions.
     using IconButton::onPress;
     using IconButton::onRelease;
 

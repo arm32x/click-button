@@ -3,6 +3,7 @@
 #include "Collision.hpp"
 
 bool Collision::pointToRect(Vector2f point, FloatRect rect) {
+    // If the point is outside the rectangle, then it's not colliding.
     if (point.x < rect.left)              return false;
     if (point.x > rect.left + rect.width) return false;
 
@@ -13,6 +14,8 @@ bool Collision::pointToRect(Vector2f point, FloatRect rect) {
 }
 
 bool Collision::pointToCircle(Vector2f point, Vector2f circleCenter, float circleRadius) {
+    // If the distance from the point to the circle's center is more than the
+    // circle's radius, it's not colliding.
     float xDistance = point.x - circleCenter.x;
     float yDistance = point.y - circleCenter.y;
 

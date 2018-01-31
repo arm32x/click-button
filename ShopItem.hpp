@@ -13,7 +13,7 @@ using namespace sf;
 #include "Options.hpp"
 
 ////////////////////////////////////////////////////////////////////////////////
-/// \brief A class to represent an item in the shop on the right of the screen.
+/// A class to represent an item in the shop on the right of the screen.
 ///
 /// Metrics:
 ///   - Each item has 51px of height and 5px of bottom padding.
@@ -39,12 +39,12 @@ protected:
     Text quantityLabel;
 
     long price;
-    bool insufficientFunds;
+    bool insufficientFunds; ///< Whether or not you have enough points to buy this item.
     int quantity = 0;
 
     virtual void draw(RenderTarget& window, RenderStates states) const;
 
-    void rewrapText();
+    void rewrapText(); ///< Make sure all of the text is aligned properly.
 
     static Vector2f getCoordsWithIndex(const int index, const Vector2f position);
 

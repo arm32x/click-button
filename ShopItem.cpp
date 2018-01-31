@@ -47,6 +47,13 @@ ShopItem::ShopItem(const int index, const std::string name, const std::string de
 }) { };
 
 
+/// Takes in an index and a position, and outputs another position.
+///
+/// @param index    The index of this shop item. 0 is the first, 1 is the
+///                 second, and so on.
+/// @param position A position relative to the top-left corner of the shop item.
+/// @return An absolute position representing where the item should be in the
+///         game.
 Vector2f ShopItem::getCoordsWithIndex(const int index, const Vector2f position) {
     return Vector2f(position.x + 496.0f, position.y + 56.0f * index + 80.0f);
 }

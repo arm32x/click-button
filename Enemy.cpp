@@ -51,6 +51,8 @@ void Enemy::draw(RenderTarget& window, RenderStates states) const {
     window.draw(attackLabel); // Draw the label.
 }
 
+/// @param mainButton This is required because I never bothered to make
+///                   `MainButton` a singleton.
 void Enemy::update(MainButton& mainButton) {
     // Is the enemy touching the main button?
     if (Collision::circleToRect(getPosition(), getRadius(), mainButton.getGlobalBounds())) {

@@ -24,14 +24,11 @@ public:
     IconButton(const Vector2f position, const bool mini, const std::string iconName);
     IconButton(const Vector2f position, const std::string iconName);
 
-    /// @{
-    /// Accessors for the pressed state of this button. @see IconButton::pressed
-    bool isPressed() const;
-    void setPressed(bool value);
-    void press();
-    void release();
-    void toggle();
-    /// @}
+    bool isPressed() const;      ///< Check whether or not this button is pressed. @see IconButton::pressed
+    void setPressed(bool value); ///< Set the pressed state of this button. @see IconButton::pressed
+    void press();                ///< Press this button, triggering the corresponding event handler. @see IconButton::onPress
+    void release();              ///< Release this button, triggering the corresponding event handler. @see IconButton::onRelease
+    void toggle();               ///< Toggle whether or not this button is pressed. @see IconButton::pressed
 
     Vector2f getPosition() const;
     void setPosition(const Vector2f value);
@@ -39,10 +36,10 @@ public:
     float getRadius() const;
     void setIcon(const std::string name);
 
-    std::function<void()> onPress;
-    std::function<void()> onRelease;
+    std::function<void()> onPress;   ///< An event handler. Triggers when this button is pressed.
+    std::function<void()> onRelease; ///< An event handler. Triggers when this button is released.
 
-    void handleEvent(Event& e, Window& window);
+    void handleEvent(Event& e, Window& window); ///< Handle an event, or do nothing if not applicable.
 
 protected:
     virtual void draw(RenderTarget& window, RenderStates states) const;

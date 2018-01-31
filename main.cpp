@@ -45,6 +45,7 @@ int main() {
     window.setFramerateLimit(60); // Make sure that CPS (Clicks Per Second) is ACTUALLY PER SECOND!!! (see `MainButton::update()`)
 
 
+    /// The main button that you click on to get points.
     MainButton mainButton(Vector2f(100.0f, 150.0f));
 
 
@@ -53,7 +54,7 @@ int main() {
         exit(1);
     }
 
-    Text logo;
+    Text logo; ///< Shown in the top-left corner.
     logo.setFont(logoFont);
     logo.setFillColor(Color(0xFF, 0xFF, 0xFF));
     logo.setCharacterSize(24);
@@ -66,7 +67,7 @@ int main() {
         exit(1);
     }
 
-    Text splashTextLabel;
+    Text splashTextLabel; ///< Shown in the top-left corner.
     splashTextLabel.setFont(splashTextFont);
     splashTextLabel.setFillColor(Color(0xFF, 0xFF, 0xFF));
     splashTextLabel.setCharacterSize(12);
@@ -74,32 +75,33 @@ int main() {
     splashTextLabel.setString(Options::SplashTexts[splashTextIndex]);
 
 
-    RectangleShape shopDivider;
+    RectangleShape shopDivider; ///< Divides the main play area and the shop.
     shopDivider.setFillColor(Options::DividerColor);
     shopDivider.setSize(Vector2f(1.0f, 480.0f));
     shopDivider.setPosition(Vector2f(475.0f, 0.0f));
 
 
-    Text shopHeader;
+    Text shopHeader; ///< Shown in the top-left corner of the shop.
     shopHeader.setFont(logoFont);
     shopHeader.setFillColor(Color(0xFF, 0xFF, 0xFF));
     shopHeader.setCharacterSize(24);
     shopHeader.setPosition(496.0f, 10.0f);
     shopHeader.setString("Buy things.");
 
-    Text shopSlogan;
+    Text shopSlogan; ///< Shown in the top-left corner of the shop.
     shopSlogan.setFont(splashTextFont);
     shopSlogan.setFillColor(Color(0xFF, 0xFF, 0xFF));
     shopSlogan.setCharacterSize(12);
     shopSlogan.setPosition(496.0f, 40.0f);
     shopSlogan.setString("Increase your clicking power.");
 
-    RectangleShape shopBackground;
+    RectangleShape shopBackground; ///< Placed behind the shop to prevent enemies from being visible inside the shop.
     shopBackground.setSize(Vector2f(379.0f, 480.0f));
     shopBackground.setPosition(Vector2f(475.0f, 0.0f));
     shopBackground.setFillColor(Options::BackgroundColor);
 
 
+    // Define the four shop items.
     ShopItem shopItemCursor(0, "Cursor", "Increases CPS by 1", 100, 0, 1);
     ShopItem shopItemGloves(1, "Gloves", "Increases power by 1", 125, 1, 0);
     ShopItem shopItemCustomCursor(2, "Custom Cursor", "Increases CPS by 10", 900, 0, 10);
@@ -117,7 +119,7 @@ int main() {
         }
     };
 
-    RectangleShape pauseShade;
+    RectangleShape pauseShade; ///< Covers the screen while the game is paused.
     pauseShade.setSize(Vector2f(854.0f, 480.0f)); // Cover the entire screen
     pauseShade.setPosition(Vector2f(0.0f, 0.0f));
     pauseShade.setFillColor(Color(Options::BackgroundColor.r,
@@ -126,14 +128,14 @@ int main() {
                                   Options::ShadeOpacity));
 
 
-    Text statsHeader;
+    Text statsHeader; ///< Shown over the shop area while the game is paused.
     statsHeader.setFont(logoFont);
     statsHeader.setFillColor(Color(0xFF, 0xFF, 0xFF));
     statsHeader.setCharacterSize(24);
     statsHeader.setPosition(496.0f, 10.0f);
     statsHeader.setString("View stats.");
 
-    Text statsSlogan;
+    Text statsSlogan; ///< Shown over the shop area while the game is paused.
     statsSlogan.setFont(splashTextFont);
     statsSlogan.setFillColor(Color(0xFF, 0xFF, 0xFF));
     statsSlogan.setCharacterSize(12);
@@ -149,10 +151,11 @@ int main() {
             }
         }
     };
-    bool firstEnemySpawned = false;
-    float enemySpawnTimer = 0.0f;
+    bool firstEnemySpawned = false; ///< Has the first (hardcoded) enemy spawned yet?
+    float enemySpawnTimer = 0.0f;   ///< A timer to determine when to spawn the next enemy.
 
 
+    // Used to prevent the main button from sticking down while autoclicking.
     bool autoclicking = false;
     bool autoclicking1 = false;
     bool autoclicking2 = false;
@@ -162,6 +165,7 @@ int main() {
             Event e;
             while (window.pollEvent(e)) {
                 if (!gamePaused) {
+                    // Tell all the different things to handle this event.
                     mainButton.handleEvent(e, window);
                     shopItemCursor.handleEvent(e, window);
                     shopItemGloves.handleEvent(e, window);
@@ -183,6 +187,7 @@ int main() {
         }
 
         if (!gamePaused) {
+            // Autoclicking routine begins.
             autoclicking = Keyboard::isKeyPressed(Keyboard::Num5) && Keyboard::isKeyPressed(Keyboard::Dash);
 
             autoclicking1 = false;
@@ -190,8 +195,8 @@ int main() {
                 autoclicking1 = true;
                 autoclicking2 = true;
                 if (mainButton.isPressed()) {
-                    if (Keyboard::isKeyPressed(Keyboard::Tab)) {
-                        for (int index = 0; index < 10; index++) {
+                    if (Keyboard::isKeyPressed(Keyboard::Tab)) { // If fast mode is on:
+                        for (int index = 0; index < 10; index++) { // Press the button 10 more times.
                             mainButton.release();
                             mainButton.press();
                         }
@@ -202,12 +207,14 @@ int main() {
                 }
             }
             if (!autoclicking1 && autoclicking2 && mainButton.isPressed()) {
-                mainButton.release();
+                mainButton.release(); // Make sure that the button doesn't stick pressed.
             }
             if (!autoclicking) {
                 autoclicking2 = false;
             }
+            // Autoclicking routine ends.
 
+            // Update all of the things.
             mainButton.update();
             shopItemCursor.update();
             shopItemGloves.update();
@@ -217,21 +224,24 @@ int main() {
                 enemies[index].update(mainButton);
             }
 
+            // Spawn the enemies.
             if (MainButton::getTotalScore() >= 25 && !firstEnemySpawned) {
-                enemies.push_back(Enemy(10));
+                enemies.push_back(Enemy(10)); // Spawns the first (hardcoded) enemy.
                 firstEnemySpawned = true;
-            } else if (MainButton::getTotalScore() >= 50) {
-                float t = (MainButton::getTotalScore() - 50) / (Options::ScoreGoal - 50);
+            } else if (MainButton::getTotalScore() >= 50) { // We can now begin spawning enemies normally!
+                float t = (MainButton::getTotalScore() - 100) / (Options::ScoreGoal - 100);
                 enemySpawnTimer += MainButton::getTotalScore() >= Options::ScoreGoal ? Options::MaxEnemySpawnRate
                                    : lerp(Options::MinEnemySpawnRate, Options::MaxEnemySpawnRate, t);
                 while (enemySpawnTimer >= 60.0f) {
                     enemies.push_back(Enemy(std::round(Random::getFloatFromRange(lerp(3.0f, 200.0f, t), lerp(5.0f, 500.0f, t) + 1.0f)) * 5));
-                    enemySpawnTimer -= 60.0f;
+                    // Random chance for more than one enemy to appear.
+                    if (Random::getIntFromRange(0, 8) != 0) enemySpawnTimer -= 60.0f;
                 }
             }
         }
 
         window.clear(Options::BackgroundColor);
+        // Draw all the enemies.
         for (unsigned int index = 0; index < enemies.size(); index++) {
             window.draw(enemies[index]);
         }
@@ -242,6 +252,7 @@ int main() {
             window.draw(shopDivider);
             window.draw(shopHeader);
             window.draw(shopSlogan);
+            // Shop items:
             window.draw(shopItemCursor);
             window.draw(shopItemGloves);
             window.draw(shopItemCustomCursor);
