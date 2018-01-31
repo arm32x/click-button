@@ -56,8 +56,8 @@ namespace Options {
 
     const float ShopPriceHikeRate = 1.35f; ///< How much to increase the price of a shop item by after it is bought. @see ShopItem
 
-    const  long ScoreGoal         = 10000; ///< When enemy spawn rates will stop increasing.
+    const  long ScoreGoal         = 5000; ///< When enemy spawn rates will stop increasing.
     const float MinEnemySpawnRate = 0.2f;  ///< The slowest enemies can spawn, in enemies per second.
-    const float MaxEnemySpawnRate = 2.0f; ///< The fastest enemies can spawn, in enemies per second.
+    const float MaxEnemySpawnRate = 1.0f; ///< The fastest enemies can spawn, in enemies per second.
 
 };

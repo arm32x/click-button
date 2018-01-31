@@ -1,5 +1,7 @@
 /// @file main.cpp
 
+#include <cmath>
+
 #include <SFML/Graphics.hpp>
 using namespace sf;
 
@@ -215,15 +217,15 @@ int main() {
                 enemies[index].update(mainButton);
             }
 
-            if (MainButton::getTotalScore() >= 50 && !firstEnemySpawned) {
+            if (MainButton::getTotalScore() >= 25 && !firstEnemySpawned) {
                 enemies.push_back(Enemy(10));
                 firstEnemySpawned = true;
-            } else if (MainButton::getTotalScore() >= 100) {
+            } else if (MainButton::getTotalScore() >= 50) {
+                float t = (MainButton::getTotalScore() - 50) / (Options::ScoreGoal - 50);
                 enemySpawnTimer += MainButton::getTotalScore() >= Options::ScoreGoal ? Options::MaxEnemySpawnRate
-                                   : lerp(Options::MinEnemySpawnRate, Options::MaxEnemySpawnRate,
-                                          (MainButton::getTotalScore() - 100) / (Options::ScoreGoal - 100));
+                                   : lerp(Options::MinEnemySpawnRate, Options::MaxEnemySpawnRate, t);
                 while (enemySpawnTimer >= 60.0f) {
-                    enemies.push_back(Enemy(50));
+                    enemies.push_back(Enemy(std::round(Random::getFloatFromRange(lerp(3.0f, 200.0f, t), lerp(5.0f, 500.0f, t) + 1.0f)) * 5));
                     enemySpawnTimer -= 60.0f;
                 }
             }
