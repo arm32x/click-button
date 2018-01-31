@@ -35,7 +35,6 @@ float lerp(float begin, float end, float t) {
 /// multiple font objects can reference the same font file.
 ////////////////////////////////////////////////////////////////////////////////
 
-#include <iostream>
 int main() {
 
     Random::getIntFromRange(0, 1); // Advance the random number generator to avoid repeated splash texts.
@@ -142,7 +141,6 @@ int main() {
 
     std::vector<Enemy> enemies; ///< A list of all enemies in-game.
     Enemy::destroy = [&enemies] (Enemy* enemy) -> void {
-        std::cout << "Time to go nuclear on the enemy at " << enemy << "." << std::endl;
         for (unsigned int index = 0; index < enemies.size(); index++) {
             if (&enemies[index] == enemy) {
                 enemies.erase(enemies.begin() + index);

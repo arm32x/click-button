@@ -13,8 +13,6 @@ Enemy::Enemy(const Vector2f position, long attack)
     attackLabel.setCharacterSize(Options::EnemyAttackLabelTextSize);
     attackLabel.setString("-" + std::to_string(attack));
     rewrapLabelText();
-
-    onPress = std::bind(destroy, this);
 }
 
 /// @param attack @see Enemy::attack
@@ -62,6 +60,8 @@ void Enemy::update(MainButton& mainButton) {
         MainButton::setScore(MainButton::getScore() - attack);
 
         destroy(this); // And then we need to destroy the enemy.
+    } else if (pressed) {
+        destroy(this);
     }
 
 
