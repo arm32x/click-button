@@ -24,6 +24,7 @@ public:
     static void setCps(double value);
     static long getPower();
     static void setPower(long value);
+    static double getTotalScore();
 
     FloatRect getGlobalBounds();
 
@@ -45,6 +46,7 @@ private:
     static double score;
     static double cps;
     static long power;
+    static double totalScore;
 
     void updateScoreText();
 
