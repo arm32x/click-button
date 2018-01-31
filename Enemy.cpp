@@ -7,7 +7,7 @@ std::function<void(Enemy* enemy)> Enemy::destroy;
 /// @param position The position to spawn the center of the enemy at.
 /// @param attack   @see Enemy::attack
 Enemy::Enemy(const Vector2f position, long attack)
-    : IconButton(position, true, ""), attack(attack) {
+    : IconButton(position, true, ""), attack(attack < 5.0f ? 5.0f : attack) {
 
     attackLabel.setFont(attackFont);
     attackLabel.setCharacterSize(Options::EnemyAttackLabelTextSize);

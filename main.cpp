@@ -14,6 +14,7 @@ using namespace sftools;
 #include "Button.hpp"
 #include "Collision.hpp"
 #include "Enemy.hpp"
+#include "EnemyExplosion.hpp"
 #include "IconButton.hpp"
 #include "Icons.hpp"
 #include "MainButton.hpp"
@@ -160,10 +161,20 @@ int main() {
     Stat elapsedTime(3, "Play time", "How much time you've played for.");
 
 
+    std::vector<EnemyExplosion> explosions;
+    EnemyExplosion::destroy = [&explosions] (EnemyExplosion* explosion) -> void {
+        for (unsigned int index = 0; index < explosions.size(); index++) {
+            if (&explosions[index] == explosion) {
+                explosions.erase(explosions.begin() + index);
+            }
+        }
+    };
+
     std::vector<Enemy> enemies; ///< A list of all enemies in-game.
-    Enemy::destroy = [&enemies] (Enemy* enemy) -> void {
+    Enemy::destroy = [&enemies, &explosions] (Enemy* enemy) -> void {
         for (unsigned int index = 0; index < enemies.size(); index++) {
             if (&enemies[index] == enemy) {
+                explosions.push_back(EnemyExplosion(enemy->getPosition()));
                 enemies.erase(enemies.begin() + index);
             }
         }
@@ -177,6 +188,8 @@ int main() {
     bool autoclicking1 = false;
     bool autoclicking2 = false;
 
+
+    gameTimer.resume(); // Start the game timer.
     while (window.isOpen()) {
         {// Event handling
             Event e;
@@ -240,6 +253,9 @@ int main() {
             for (unsigned int index = 0; index < enemies.size(); index++) {
                 enemies[index].update(mainButton);
             }
+            for (unsigned int index = 0; index < explosions.size(); index++) {
+                explosions[index].update();
+            }
             peakScore.update(std::to_string((long)std::floor(MainButton::getPeakScore())));
             powerStat.update(std::to_string(MainButton::getPower()));
             cpsStat.update(std::to_string((long)std::floor(MainButton::getCps())));
@@ -276,7 +292,7 @@ int main() {
                 while (enemySpawnTimer >= 60.0f) {
                     enemies.push_back(Enemy(std::round(Random::getFloatFromRange(lerp(3.0f, 200.0f, t), lerp(5.0f, 500.0f, t) + 1.0f)) * 5));
                     // Random chance for more than one enemy to appear.
-                    if (Random::getIntFromRange(0, 8) != 0) enemySpawnTimer -= 60.0f;
+                    if (Random::getIntFromRange(0, 16) != 0) enemySpawnTimer -= 60.0f;
                 }
             }
         }
@@ -285,6 +301,9 @@ int main() {
         // Draw all the enemies.
         for (unsigned int index = 0; index < enemies.size(); index++) {
             window.draw(enemies[index]);
+        }
+        for (unsigned int index = 0; index < explosions.size(); index++) {
+            window.draw(explosions[index]);
         }
         // Don't draw the shop if the game is paused because the stats page
         // covers it up.
