@@ -1,6 +1,7 @@
 /// @file main.cpp
 
 #include <cmath>
+#include <string>
 
 #include <SFML/Graphics.hpp>
 using namespace sf;
@@ -14,6 +15,7 @@ using namespace sf;
 #include "Options.hpp"
 #include "Random.hpp"
 #include "ShopItem.hpp"
+#include "Stat.hpp"
 
 /// Stands for "linear interpolation". Returns the value that is a percentage
 /// (represented by `t`) in between two values.
@@ -142,6 +144,9 @@ int main() {
     statsSlogan.setPosition(496.0f, 40.0f);
     statsSlogan.setString("See how much time you've lost.");
 
+    // I didn't calculate total score correctly... but it works.
+    Stat totalScore(0, "Peak score", "The most points you've had at once.");
+
 
     std::vector<Enemy> enemies; ///< A list of all enemies in-game.
     Enemy::destroy = [&enemies] (Enemy* enemy) -> void {
@@ -223,6 +228,7 @@ int main() {
             for (unsigned int index = 0; index < enemies.size(); index++) {
                 enemies[index].update(mainButton);
             }
+            totalScore.update(std::to_string((long)std::floor(MainButton::getTotalScore())));
 
             // Spawn the enemies.
             if (MainButton::getTotalScore() >= 25 && !firstEnemySpawned) {
@@ -270,6 +276,8 @@ int main() {
 
             window.draw(statsHeader);
             window.draw(statsSlogan);
+
+            window.draw(totalScore);
         }
         window.display();
     }
