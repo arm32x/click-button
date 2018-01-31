@@ -31,6 +31,8 @@ public:
 
     int getQuantityOwned();
 
+    void hideQuantity();
+
 protected:
     Text title;
     Text descriptionLabel;
@@ -41,6 +43,7 @@ protected:
     long price;
     bool insufficientFunds; ///< Whether or not you have enough points to buy this item.
     int quantity = 0;
+    bool showQuantity = true;
 
     virtual void draw(RenderTarget& window, RenderStates states) const;
 

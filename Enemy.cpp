@@ -54,16 +54,28 @@ void Enemy::draw(RenderTarget& window, RenderStates states) const {
 /// @param mainButton This is required because I never bothered to make
 ///                   `MainButton` a singleton.
 void Enemy::update(MainButton& mainButton) {
-    // Is the enemy touching the main button?
-    if (Collision::circleToRect(getPosition(), getRadius(), mainButton.getGlobalBounds())) {
-        // If so, we want to deduct the score and destroy this enemy.
+    if (MainButton::getShieldFrames() > 0) {
+        // Is the enemy touching the main button's shield?
+        if (Collision::circleToRect(getPosition(), getRadius(), mainButton.getShieldBounds())) {
+            // If so, we want to destroy this enemy.
+            destroy(this);
+            return;
+        }
+    } else {
+        // Is the enemy touching the main button?
+        if (Collision::circleToRect(getPosition(), getRadius(), mainButton.getGlobalBounds())) {
+            // If so, we want to deduct the score and destroy this enemy.
 
-        // Deducting the score involves some basic subtraction:
-        MainButton::setScore(MainButton::getScore() - attack);
+            // Deducting the score involves some basic subtraction:
+            MainButton::setScore(MainButton::getScore() - attack);
 
-        destroy(this); // And then we need to destroy the enemy.
-    } else if (pressed) {
+            destroy(this); // And then we need to destroy the enemy.
+            return;
+        }
+    }
+    if (pressed) {
         destroy(this);
+        return;
     }
 
 

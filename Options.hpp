@@ -39,6 +39,7 @@ namespace Options {
     const        Color MainButtonTextColor   = Color(0xFA, 0xFA, 0xFA);  ///< The text color of the main button.
     const unsigned int MainButtonTextSize    = 45;                       ///< The text size of the main button.
     const     Vector2f MainButtonSize        = Vector2f(275.0f, 150.0f); ///< The size of the main button.
+    const        Color MainButtonShieldColor = Color(0x73, 0xDE, 0xD1);  ///< The color of the main button's shield.
 
     const Color DividerColor = Color(0xFF, 0xFF, 0xFF, 0.10 * 0xFF); ///< The color of dividers.
     const float ShadeOpacity = 0.65 * 0xFF;                          ///< How opaque should shades (semi-transparent covers) be?

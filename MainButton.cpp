@@ -6,6 +6,7 @@ double MainButton::score = 0;
 double MainButton::cps = 0;
 long MainButton::power = 1;
 double MainButton::peakScore = 0;
+int MainButton::shieldFrames = 0;
 
 MainButton::MainButton(Vector2f position)
     : Button(Vector2f(position + Vector2f(10.0f, 10.0f)), Vector2f(Options::MainButtonSize + Vector2f(-20.0f, -25.0f)), Options::MainButtonColor, Options::MainButtonShadowColor, Options::MainButtonTextColor, "0") {
@@ -17,6 +18,13 @@ MainButton::MainButton(Vector2f position)
     standShadow.setPosition(position + Vector2f(0.0f, 5.0f));
     standShadow.setSize(Options::MainButtonSize + Vector2f(0.0f, -5.0f));
     standShadow.setFillColor(Options::StandardButtonShadowColor);
+
+    shield.setPosition(position + Vector2f(-10.0f, -10.0f));
+    shield.setSize(Options::MainButtonSize + Vector2f(20.0f, 20.0f));
+    shield.setFillColor(Options::IconButtonColor);
+    shield.setOutlineThickness(-1.0f);
+    shield.setOutlineColor(Options::MainButtonShieldColor);
+
 
     label.setFont(labelFont);
     label.setCharacterSize(Options::MainButtonTextSize);
@@ -34,6 +42,7 @@ void MainButton::draw(RenderTarget& window, RenderStates states) const {
         window.draw(standShadow);
         window.draw(stand);
         window.draw(shadowShape);
+        if (getShieldFrames() > 0) window.draw(shield);
 
         RectangleShape pressedShape(shape);
         pressedShape.move(Vector2f(0.0f, 3.0f));
@@ -48,10 +57,12 @@ void MainButton::draw(RenderTarget& window, RenderStates states) const {
         window.draw(shadowShape);
         window.draw(shape);
         window.draw(label);
+        if (getShieldFrames() > 0) window.draw(shield);
     }
 }
 
 void MainButton::update() {
+    if (shieldFrames > 0) shieldFrames--;
     score += cps / 60;
     updateScoreText();
 }
@@ -62,6 +73,8 @@ double MainButton::getCps() { return cps; }
 void MainButton::setCps(double value) { cps = value; }
 long MainButton::getPower() { return power; }
 void MainButton::setPower(long value) { power = value; }
+int MainButton::getShieldFrames() { return shieldFrames; }
+void MainButton::setShieldFrames(int value) { shieldFrames = value; }
 double MainButton::getPeakScore() { return peakScore; }
 
 /// Returns a rectangle representing the global bounds of this button. Global
@@ -71,6 +84,11 @@ double MainButton::getPeakScore() { return peakScore; }
 /// @return The global bounds of this button.
 FloatRect MainButton::getGlobalBounds() {
     return FloatRect(stand.getPosition().x, stand.getPosition().y, stand.getSize().x, stand.getSize().y + 5.0f);
+}
+
+/// Same as MainButton::getGlobalBounds(), but for the shield.
+FloatRect MainButton::getShieldBounds() {
+    return FloatRect(shield.getPosition().x, shield.getPosition().y, shield.getSize().x, shield.getSize().y);
 }
 
 Font MainButton::labelFont = MainButton::initLabelFont();

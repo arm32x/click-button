@@ -59,11 +59,14 @@ Vector2f ShopItem::getCoordsWithIndex(const int index, const Vector2f position) 
 }
 
 
+void ShopItem::hideQuantity() { showQuantity = false; }
+
+
 void ShopItem::draw(RenderTarget& window, RenderStates states) const {
     window.draw(descriptionLabel);
     window.draw(title);
     window.draw(buyButton);
-    window.draw(quantityLabel);
+    if (showQuantity) window.draw(quantityLabel);
     window.draw(priceLabel);
 }
 

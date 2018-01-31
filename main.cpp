@@ -118,6 +118,11 @@ int main() {
     ShopItem shopItemCustomCursor(2, "Custom Cursor", "Increases CPS by 10", 900, 0, 10);
     ShopItem shopItemCustomGloves(3, "Custom Gloves", "Increases power by 10", 1150, 10, 0);
 
+    ShopItem shopItemShield(4, "Shield", "Puts up a shield for 10 seconds.", 500, [] () -> void {
+        MainButton::setShieldFrames(MainButton::getShieldFrames() + 600);
+    });
+    shopItemShield.hideQuantity();
+
 
     IconButton pauseButton(Vector2f(28.0f, 452.0f), false, "pause");
     bool gamePaused = false;
@@ -201,6 +206,7 @@ int main() {
                     shopItemGloves.handleEvent(e, window);
                     shopItemCustomCursor.handleEvent(e, window);
                     shopItemCustomGloves.handleEvent(e, window);
+                    shopItemShield.handleEvent(e, window);
                     for (unsigned int index = 0; index < enemies.size(); index++) {
                         enemies[index].handleEvent(e, window);
                     }
@@ -250,6 +256,7 @@ int main() {
             shopItemGloves.update();
             shopItemCustomCursor.update();
             shopItemCustomGloves.update();
+            shopItemShield.update();
             for (unsigned int index = 0; index < enemies.size(); index++) {
                 enemies[index].update(mainButton);
             }
@@ -317,6 +324,7 @@ int main() {
             window.draw(shopItemGloves);
             window.draw(shopItemCustomCursor);
             window.draw(shopItemCustomGloves);
+            window.draw(shopItemShield);
         }
         window.draw(mainButton);
         if (gamePaused) window.draw(pauseShade);

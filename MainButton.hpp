@@ -28,15 +28,19 @@ public:
     static void setCps(double value);
     static long getPower();
     static void setPower(long value);
+    static int getShieldFrames();
+    static void setShieldFrames(int value);
     static double getPeakScore();
 
     FloatRect getGlobalBounds();
+    FloatRect getShieldBounds();
 
 protected:
     virtual void draw(RenderTarget& window, RenderStates states) const;
 
     RectangleShape stand;
     RectangleShape standShadow;
+    RectangleShape shield;
 
 private:
     using Button::Button;
@@ -50,7 +54,8 @@ private:
     static double score;      ///< The score, displayed on the button.
     static double cps;        ///< The number of points to add per second.
     static long power;        ///< How many points clicking the button gives you.
-    static double peakScore; ///< The total number of points that have been accumulated.
+    static double peakScore;  ///< The total number of points that have been accumulated.
+    static int shieldFrames;  ///< The number of frames that the shield will remain up.
 
     void updateScoreText(); ///< Make sure the score text is properly centered.
 
