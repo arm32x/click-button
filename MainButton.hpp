@@ -28,7 +28,7 @@ public:
     static void setCps(double value);
     static long getPower();
     static void setPower(long value);
-    static double getTotalScore();
+    static double getPeakScore();
 
     FloatRect getGlobalBounds();
 
@@ -50,7 +50,7 @@ private:
     static double score;      ///< The score, displayed on the button.
     static double cps;        ///< The number of points to add per second.
     static long power;        ///< How many points clicking the button gives you.
-    static double totalScore; ///< The total number of points that have been accumulated.
+    static double peakScore; ///< The total number of points that have been accumulated.
 
     void updateScoreText(); ///< Make sure the score text is properly centered.
 

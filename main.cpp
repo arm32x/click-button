@@ -1,10 +1,15 @@
 /// @file main.cpp
 
 #include <cmath>
+#include <iomanip>
+#include <sstream>
 #include <string>
 
 #include <SFML/Graphics.hpp>
 using namespace sf;
+
+#include <SFTools/Chronometer.hpp>
+using namespace sftools;
 
 #include "Button.hpp"
 #include "Collision.hpp"
@@ -16,6 +21,9 @@ using namespace sf;
 #include "Random.hpp"
 #include "ShopItem.hpp"
 #include "Stat.hpp"
+
+/// Keeps track of how much time the game is running.
+Chronometer gameTimer;
 
 /// Stands for "linear interpolation". Returns the value that is a percentage
 /// (represented by `t`) in between two values.
@@ -115,8 +123,10 @@ int main() {
     pauseButton.onRelease = [&pauseButton, &gamePaused] () -> void {
         gamePaused = !gamePaused;
         if (gamePaused) {
+            gameTimer.pause();
             pauseButton.setIcon("play");
         } else {
+            gameTimer.resume();
             pauseButton.setIcon("pause");
         }
     };
@@ -144,8 +154,10 @@ int main() {
     statsSlogan.setPosition(496.0f, 40.0f);
     statsSlogan.setString("See how much time you've lost.");
 
-    // I didn't calculate total score correctly... but it works.
-    Stat totalScore(0, "Peak score", "The most points you've had at once.");
+    Stat peakScore(0, "Peak score", "The most points you've had at once.");
+    Stat powerStat(1, "Current power", "How many points you gain when you click the button.");
+    Stat cpsStat(2, "Clicks per second", "How many points you gain per second.");
+    Stat elapsedTime(3, "Play time", "How much time you've played for.");
 
 
     std::vector<Enemy> enemies; ///< A list of all enemies in-game.
@@ -228,15 +240,38 @@ int main() {
             for (unsigned int index = 0; index < enemies.size(); index++) {
                 enemies[index].update(mainButton);
             }
-            totalScore.update(std::to_string((long)std::floor(MainButton::getTotalScore())));
+            peakScore.update(std::to_string((long)std::floor(MainButton::getPeakScore())));
+            powerStat.update(std::to_string(MainButton::getPower()));
+            cpsStat.update(std::to_string((long)std::floor(MainButton::getCps())));
+            {
+                Time elapsed = gameTimer.getElapsedTime();
+                std::ostringstream formattedTimeStream;
+
+                int hours = (int)std::floor(elapsed.asSeconds() / 60.0f / 60.0f) % 60;
+                if (hours > 0) {
+                    formattedTimeStream << hours << ':';
+                }
+
+                int minutes = (int)std::floor(elapsed.asSeconds() / 60.0f) % 60;
+                if (hours > 0) {
+                    formattedTimeStream << std::setfill('0') << std::setw(2);
+                }
+                formattedTimeStream << minutes << ':';
+
+                int seconds = (int)std::floor(elapsed.asSeconds()) % 60;
+                formattedTimeStream << std::setfill('0') << std::setw(2) << seconds;
+
+                std::string formattedTime = formattedTimeStream.str();
+                elapsedTime.update(formattedTime);
+            }
 
             // Spawn the enemies.
-            if (MainButton::getTotalScore() >= 25 && !firstEnemySpawned) {
+            if (MainButton::getPeakScore() >= 25 && !firstEnemySpawned) {
                 enemies.push_back(Enemy(10)); // Spawns the first (hardcoded) enemy.
                 firstEnemySpawned = true;
-            } else if (MainButton::getTotalScore() >= 50) { // We can now begin spawning enemies normally!
-                float t = (MainButton::getTotalScore() - 100) / (Options::ScoreGoal - 100);
-                enemySpawnTimer += MainButton::getTotalScore() >= Options::ScoreGoal ? Options::MaxEnemySpawnRate
+            } else if (MainButton::getPeakScore() >= 50) { // We can now begin spawning enemies normally!
+                float t = (MainButton::getPeakScore() - 100) / (Options::ScoreGoal - 100);
+                enemySpawnTimer += MainButton::getPeakScore() >= Options::ScoreGoal ? Options::MaxEnemySpawnRate
                                    : lerp(Options::MinEnemySpawnRate, Options::MaxEnemySpawnRate, t);
                 while (enemySpawnTimer >= 60.0f) {
                     enemies.push_back(Enemy(std::round(Random::getFloatFromRange(lerp(3.0f, 200.0f, t), lerp(5.0f, 500.0f, t) + 1.0f)) * 5));
@@ -277,7 +312,10 @@ int main() {
             window.draw(statsHeader);
             window.draw(statsSlogan);
 
-            window.draw(totalScore);
+            window.draw(peakScore);
+            window.draw(powerStat);
+            window.draw(cpsStat);
+            window.draw(elapsedTime);
         }
         window.display();
     }

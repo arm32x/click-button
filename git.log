@@ -1,0 +1,50 @@
+* 4482af1 (HEAD -> master, tag: final-project) Add "peak score" stat.
+* 9ba6db6 Document everything
+* a58a01d Misc. fixes, including tweaking some values
+* 9b955fd It finally works!
+* f246fbe Commit half-finished work because I want to be able to revert to it.
+* 6658186 Add enemy spawning logic
+* f197e00 Add total score counter
+* 3519afa Add stats page (currently empty)
+* da8037d Misc. fix
+* 6e5161d Fix enemy destruction bug
+* 5150ba4 Add enemies.
+* fab7008 Add pause button
+* 4ebcb29 Add icons and `IconButtons`
+* b7a11bf Replace testing shop item with four new ones
+* 1d3bf05 Misc. changes
+* 8eb2f63 Document 'Options.hpp'
+* 3a64ee9 Add '@file' documentation comment to every file
+* db92f43 Document `Button` class
+* 3cf0a92 Fix CPS issue
+* 763bd33 Implement shop system
+* 1f0bd9d Misc. fixes
+* fe0b972 Add proper event handling system in `Button`
+* 6aedab1 Clean up `score`, `power`, and `cps` in `MainButton`
+* 81b5417 Add clicking power and clicks per second to `MainButton`
+* 27f503f Avoid repeated splash texts.
+* 21f7066 Make `MainButton::score` static
+* 08cdefa Add support for changing button colors
+* 7c85750 Adjust a few things
+* f2d7d84 Switch to using only Oswald as fonts
+* 0e50162 Add shop section (currently empty)
+* cc4e536 Add splash text in reference to direwolf20 S8 E46.
+* ad45f5b Add autoclicker for testing reasons.
+* 24c7244 Add logo in top-left corner
+* 92c2e07 Add some more splash texts
+* 721e39e Fix clicking bug.
+* 5cd5ff6 Add some extra splash texts.
+* d400e87 Change the name of the main button variable
+* 5845e67 Change main button size
+* 7ccce73 Remove slight text blur from score counter
+* 4895db7 Add score counter on main button
+* 7d9bb2e Fix up a few things regarding font
+* bf0e59e Add the class representing the main button
+* b5584be Allow the Button class to work with const values
+* 4568628 Restructure Button class to prepare for inheritance
+* 532eb4a Misc. fix
+* ec1e714 Add mouse click detection logic
+* eddee4f Add the Button class
+* 98ef88c Create basic window with customizable splash texts
+* 2f44a9d Add '.gitignore'
+* 63b5cdb Initial commit

@@ -5,7 +5,7 @@
 double MainButton::score = 0;
 double MainButton::cps = 0;
 long MainButton::power = 1;
-double MainButton::totalScore = 0;
+double MainButton::peakScore = 0;
 
 MainButton::MainButton(Vector2f position)
     : Button(Vector2f(position + Vector2f(10.0f, 10.0f)), Vector2f(Options::MainButtonSize + Vector2f(-20.0f, -25.0f)), Options::MainButtonColor, Options::MainButtonShadowColor, Options::MainButtonTextColor, "0") {
@@ -62,7 +62,7 @@ double MainButton::getCps() { return cps; }
 void MainButton::setCps(double value) { cps = value; }
 long MainButton::getPower() { return power; }
 void MainButton::setPower(long value) { power = value; }
-double MainButton::getTotalScore() { return totalScore; }
+double MainButton::getPeakScore() { return peakScore; }
 
 /// Returns a rectangle representing the global bounds of this button. Global
 /// bounds is a term used by SFML to represent a rectangle containing the X
@@ -93,8 +93,8 @@ void MainButton::updateScoreText() {
     } else {
         label.setFillColor(Options::MainButtonTextColor);
     }
-    if (getScore() > getTotalScore()) {
-        totalScore = getScore();
+    if (getScore() > getPeakScore()) {
+        peakScore = getScore();
     }
     rewrapLabelText();
 }
