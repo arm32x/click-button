@@ -13,6 +13,18 @@ using namespace sf;
 #include "Random.hpp"
 #include "ShopItem.hpp"
 
+/// Stands for "linear interpolation". Returns the value that is a percentage
+/// (represented by `t`) in between two values.
+///
+/// @param begin The start value.
+/// @param end   The end value.
+/// @param t     A percentage (from 0.0f to 1.0f).
+/// @return The value that is a percentage in between two values.
+float lerp(float begin, float end, float t) {
+    float difference = end - begin;
+    return begin + difference * t;
+}
+
 ////////////////////////////////////////////////////////////////////////////////
 /// @page fontinit Font initialization
 ///
@@ -127,7 +139,8 @@ int main() {
     statsSlogan.setString("See how much time you've lost.");
 
 
-    Enemy(50);
+    bool firstEnemySpawned = false;
+    float enemySpawnTimer = 0.0f;
 
 
     bool autoclicking = false;
@@ -193,8 +206,20 @@ int main() {
             for (unsigned int index = 0; index < Enemy::enemies.size(); index++) {
                 Enemy::enemies[index].update(mainButton);
             }
-        }
 
+            if (MainButton::getTotalScore() >= 50 && !firstEnemySpawned) {
+                Enemy(10);
+                firstEnemySpawned = true;
+            } else if (MainButton::getTotalScore() >= 100) {
+                enemySpawnTimer += MainButton::getTotalScore() >= Options::ScoreGoal ? Options::MaxEnemySpawnRate
+                                   : lerp(Options::MinEnemySpawnRate, Options::MaxEnemySpawnRate,
+                                          (MainButton::getTotalScore() - 100) / (Options::ScoreGoal - 100));
+                while (enemySpawnTimer >= 60.0f) {
+                    Enemy(50);
+                    enemySpawnTimer -= 60.0f;
+                }
+            }
+        }
 
         window.clear(Options::BackgroundColor);
         for (unsigned int index = 0; index < Enemy::enemies.size(); index++) {

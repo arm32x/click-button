@@ -27,6 +27,10 @@ IconButton::IconButton(const Vector2f position, const bool mini, const std::stri
     }
     icon.setOrigin(Vector2f(12.0f, 12.0f));
     icon.setPosition(position);
+
+    // For some reason, this prevents the pause button from being clicked on the
+    // first click, even if you don't click on the pause button.
+    release();
 }
 
 /// @see IconButton::IconButton(const Vector2f, const bool, const std::string)
